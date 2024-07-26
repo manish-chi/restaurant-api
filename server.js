@@ -2,12 +2,12 @@ let app = require("./app");
 let mongoose = require("mongoose");
 
 let databaseConnection = process.env.DATABASE_CONNECTION.replace(
-  "<username>",
+  "<USERNAME>",
   process.env.DATABASE_USERNAME
 );
 
-databaseConnection = process.env.DATABASE_CONNECTION.replace(
-  "<password>",
+databaseConnection = databaseConnection.replace(
+  "<PASSWORD>",
   process.env.DATABASE_PASSWORD
 );
 
