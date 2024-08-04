@@ -3,8 +3,8 @@
     "name": "Daba Delicious",
     "contact": 918686655890,
     "type": "veg",
-    "open": 9,
-    "close": 22,
+    "open": "2024-08-23T13:30:00.000+00:00",
+    "close": "2024-08-23T22:00:00.000+00:00",
     "ratingsAverage": 4,
     "ratingsQuantity": 6,
     "location": {
@@ -12,14 +12,14 @@
       "address": "KASS hotel building, NH 44, opp. RTA Office, Bashirabad, Kompally, Hyderabad, Secunderabad, Telangana 500010",
       "description": "Among restaurants and shops along National Highway 44, this casual hotel is 3 km from Runway 9 Hyderabad amusement park and 2 km from the shores of Fox Sagar Lake.The laid-back rooms come with flat-screen TVs, kettles and sitting areas. Suites add separate living rooms. Room service is offered 24/7."
     },
-    "photo": "https://bit.ly/3Wos5Du"
+    "photo": "https://dhabadeliciousstorage.blob.core.windows.net/restaurant-images/restaurant-2-veg.jpg"
   },
   {
     "name": "Daba Delicious",
     "contact": 918686655891,
     "type": "non-veg",
-    "open": 9,
-    "close": 21,
+    "open": "2024-08-23T13:30:00.000+00:00",
+    "close": "2024-08-23T23:30:00.000+00:00",
     "ratingsAverage": 4,
     "ratingsQuantity": 6,
     "location": {
@@ -27,13 +27,13 @@
       "address": "KASS hotel building, NH 44, opp. RTA Office, Bashirabad, Kompally, Hyderabad, Secunderabad, Telangana 500010",
       "description": "Among restaurants and shops along National Highway 44, this casual hotel is 3 km from Runway 9 Hyderabad amusement park and 2 km from the shores of Fox Sagar Lake.The laid-back rooms come with flat-screen TVs, kettles and sitting areas. Suites add separate living rooms. Room service is offered 24/7."
     },
-    "photo": "https://bit.ly/3Wos5Du"
+    "photo": "https://dhabadeliciousstorage.blob.core.windows.net/restaurant-images/restaurant-1-non-veg.jpg"
   },
   {
     "name": "Daba Delicious",
     "contact": 918686655892,
-    "open": 9,
-    "close": 20,
+    "open": "2024-08-23T11:00:00.000+00:00",
+    "close": "2024-08-23T23:30:00.000+00:00",
     "type": "non-veg",
     "ratingsAverage": 4,
     "ratingsQuantity": 6,
@@ -42,30 +42,30 @@
       "address": "2nd Floor, SLN Plaza, Above Q by Tonique, Jeedimetla Kompally, Hyderabad, Telangana 500067",
       "description": "Hotel is 9 km from Runway 9 Hyderabad amusement park and 2 km from the shores of Fox Sagar Lake.The laid-back rooms come with flat-screen TVs, kettles and sitting areas. Suites add separate living rooms. Room service is offered 24/7."
     },
-    "photo": "https://bit.ly/3WFp5DO"
+    "photo": "https://dhabadeliciousstorage.blob.core.windows.net/restaurant-images/restaurant-1-non-veg.jpg"
   },
 
   {
     "name": "Daba Delicious-tiffins",
     "contact": 918686655893,
     "type": "tiffins",
-    "open": 7,
-    "close": 13,
+    "open": "2024-08-23T06:05:00.000+00:00",
+    "close": "2024-08-23T12:05:00.000+00:00",
     "ratingsAverage": 4,
     "ratingsQuantity": 6,
     "location": {
       "coordinates": [17.516129840382078, 78.48470350157076],
       "address": "Lane Number 7, Presidency Colony, Pedda Bashirabad, S N REDDY ENCLAVE, Bolarum, Hyderabad, Secunderabad, Telangana 500055",
-      "description": "Delicious Tiffins Offereed! South-North-Indian"
+      "description": "Delicious Tiffins Offereed! South-North-Indian Runway 9 Hyderabad amusement park and 2 km from the shores of Fox Sagar Lake.The laid-back rooms come with flat-screen TVs, kettles and sitting areas. Suites add separate living rooms. Room service is offered 24/7."
     },
-    "photo": "https://bit.ly/46mRK3Q"
+    "photo": "https://dhabadeliciousstorage.blob.core.windows.net/restaurant-images/restaurant-2-tiffins.jpg"
   },
   {
     "name": "Daba Delicious-tiffins",
     "contact": 918686655894,
     "type": "tiffins",
-    "open": 6,
-    "close": 13,
+    "open": "2024-08-23T05:05:00.000+00:00",
+    "close": "2024-08-23T11:00:00.000+00:00",
     "ratingsAverage": 4,
     "ratingsQuantity": 6,
     "location": {
@@ -73,14 +73,14 @@
       "address": "Plot no 138 Hi tension road, Medchal Rd, beside toll gate, Petbasheerabad, Quthbullapur, Hyderabad, Telangana 500067",
       "description": "Our Tiffin Center offers a delightful culinary experience with a diverse menu of North and South Indian dishes. Enjoy authentic flavors crafted with fresh ingredients, from spicy curries and aromatic biryanis to delicious dosas and comforting idlis. Whether you're craving rich butter chicken or tangy sambar, our tiffin service ensures a satisfying meal that brings the best of Indian cuisine to your table."
     },
-    "photo": "https://bit.ly/3WoJwn8"
+    "photo": "https://dhabadeliciousstorage.blob.core.windows.net/restaurant-images/restaurant-2-tiffins.jpg"
   },
   {
     "name": "Daba Delicious-tiffins",
     "contact": 918686655895,
     "type": "tiffins",
-    "open": 7,
-    "close": 13,
+    "open": "2024-08-23T05:05:00.000+00:00",
+    "close": "2024-08-23T11:00:00.000+00:00",
     "ratingsAverage": 4,
     "ratingsQuantity": 6,
     "location": {
@@ -88,6 +88,6 @@
       "address": "GF3H+CG9, NH 44, Green Park, Jeedimetla, Secunderabad, Telangana 500067",
       "description": "Delight in the diverse flavors of India with our authentic North and South Indian cuisine. Our menu features a delectable variety of dishes, from rich curries and tandoori delights to dosas and idlis. Whether you're craving spicy biryanis or comforting sambar, our tiffin service delivers fresh, homemade meals right to your doorstep. Enjoy the taste of India, prepared with love and the finest ingredients."
     },
-    "photo": "https://bit.ly/3WdTqYU"
+    "photo": "https://dhabadeliciousstorage.blob.core.windows.net/restaurant-images/restaurant-2-tiffins.jpg"
   }
 ]

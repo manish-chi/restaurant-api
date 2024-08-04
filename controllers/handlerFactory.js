@@ -1,5 +1,5 @@
 const catchAsync = require("../utils/catchAsync");
-const AppError = require("../utils/appError");
+const AppError = require('../utils/appError');
 
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -12,9 +12,13 @@ exports.getAll = (Model) =>
     });
   });
 
-exports.getOne = (Model) => {
+exports.getOne = (Model,popOptions) => {
   return catchAsync(async (req, res, next) => {
-    let result = await Model.findById(req.params.id);
+    let query = Model.findById(req.params.id);
+
+    if(popOptions) query.populate(popOptions)
+
+    let result = await query;
 
     if (!result) throw new AppError(404, "Invalid Restaurant ID");
 
@@ -25,7 +29,7 @@ exports.getOne = (Model) => {
       },
     });
   });
-};
+}; 
 
 exports.addOne = (Model) => {
   return catchAsync(async (req, res, next) => {
@@ -42,6 +46,22 @@ exports.addOne = (Model) => {
 
 exports.updateOne = (Model) => {
   return catchAsync(async (req, res, next) => {
+    let obj = req.body;
+
+    let doc = await Model.findById({ _id: req.params.id });
+
+    let listOfAttributes = Object.keys(doc._doc);
+
+    let isAttributePresentOrNot = listOfAttributes.some((ele) => {
+      return Object.keys(obj).includes(ele);
+    });
+
+    if (!isAttributePresentOrNot)
+      throw new AppError(
+        400,
+        "The requested attribute can't be updated in database"
+      );
+
     let updatedDoc = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,

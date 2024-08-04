@@ -1,9 +1,9 @@
 let fs = require("fs");
 let mongoose = require("mongoose");
 const dotenv = require("dotenv");
-let Restaurant = require("../models/restaurantModel");
+let Restaurant = require("./models/restaurantModel");
 
-dotenv.config({ path: "C:\\Users\\Manish\\restaurant-api\\config.env" });
+dotenv.config({ path: "C:\\Users\\Manish\\Dhaba Delicious\\restaurant-api\\config.env" });
 
 console.log(process.env.DATABASE_CONNECTION);
 
@@ -20,7 +20,7 @@ databaseConnection = databaseConnection.replace(
 console.log(databaseConnection);
 
 let restaurants = JSON.parse(
-  fs.readFileSync(`${__dirname}/restaurants/restaurant.json`, "UTF-8")
+  fs.readFileSync(`${__dirname}/dev-data/restaurants/restaurant.json`, "UTF-8")
 );
 
 mongoose.connect(databaseConnection).then((conn) => {
