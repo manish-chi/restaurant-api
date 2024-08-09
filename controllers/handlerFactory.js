@@ -1,5 +1,6 @@
 const catchAsync = require("../utils/catchAsync");
 const AppError = require('../utils/appError');
+const fs = require('fs');
 
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -43,6 +44,23 @@ exports.addOne = (Model) => {
     });
   });
 };
+
+exports.getCard = (path) =>{
+  return catchAsync(async(req,res,next) => {
+    try{
+
+      let data = fs.readFileSync(path,'utf8');
+
+      return res.status(200).json({
+          status : 'success',
+          data : data,
+      });
+  }
+  catch(err){
+      throw new AppError(400,err.message);
+  } 
+  });
+}
 
 exports.updateOne = (Model) => {
   return catchAsync(async (req, res, next) => {

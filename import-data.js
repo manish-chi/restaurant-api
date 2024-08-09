@@ -20,7 +20,7 @@ databaseConnection = databaseConnection.replace(
 console.log(databaseConnection);
 
 let restaurants = JSON.parse(
-  fs.readFileSync(`${__dirname}/dev-data/restaurants/restaurant.json`, "UTF-8")
+  fs.readFileSync(`${__dirname}/dev-data/menu/menu.json`, "UTF-8")
 );
 
 mongoose.connect(databaseConnection).then((conn) => {

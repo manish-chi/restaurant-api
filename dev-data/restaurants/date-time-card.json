@@ -1,0 +1,109 @@
+{
+    "type": "AdaptiveCard",
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.3",
+    "body": [
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": "auto",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://dhabadeliciousstorage.blob.core.windows.net/icons/calendar_591607.png",
+                            "width": "25px",
+                            "height": "25px"
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": "stretch",
+                    "items": [
+                        {
+                            "type": "Input.Date",
+                            "id" : "Date",
+                            "spacing": "None",
+                            "isRequired": true,
+                            "errorMessage": "Please select a date",
+                            "label": "Date",
+                            "value": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": "auto",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://dhabadeliciousstorage.blob.core.windows.net/icons/chronometer_850960.png",
+                            "width": "25px",
+                            "height": "25px"
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": "stretch",
+                    "items": [
+                        {
+                            "type": "Input.Time",
+                            "id" : "Time",
+                            "min": "10:00",
+                            "max": "16:00",
+                            "errorMessage": "Time is required",
+                            "value": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": "stretch",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "height": "35px",
+                            "width": "85px",
+                            "selectAction": {
+                                "type": "Action.Submit"
+                            },
+                            "url": "https://dhabadeliciousstorage.blob.core.windows.net/icons/Reserve.jpg"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": "stretch",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "text": "If you wish to cancel reservation please type *'cancel reservation'*",
+                            "wrap": true,
+                            "fontType": "Default",
+                            "style": "default",
+                            "size": "Default"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

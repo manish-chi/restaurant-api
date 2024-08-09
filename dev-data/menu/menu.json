@@ -1,0 +1,314 @@
+[
+    {
+      "name": "Paneer Tikka",
+      "category": "Starters",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754124","66af3fdbb278586bf2754125"],
+      "description": "Cottage cheese cubes marinated in spices and grilled.",
+      "price_in_INR": 250
+    },
+    {
+      "name": "Chicken Malai Tikka",
+      "category": "Starters",
+      "type": "Non-Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Creamy chicken pieces marinated in yogurt and spices.",
+      "price_in_INR": 320
+    },
+    {
+      "name": "Hara Bhara Kabab",
+      "category": "Starters",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754124"],
+      "description": "Vegetarian kababs made with spinach, peas, and spices.",
+      "price_in_INR": 200
+    },
+    {
+      "name": "Mutton Seekh Kebab",
+      "category": "Starters",
+      "type": "Non-Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Minced lamb skewers seasoned with herbs and spices.",
+      "price_in_INR": 350
+    },
+    {
+      "name": "Butter Chicken",
+      "category": "Main Course",
+      "type": "Non-Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Tender chicken pieces in a rich tomato-based creamy sauce.",
+      "price_in_INR": 450
+    },
+    {
+      "name": "Paneer Butter Masala",
+      "category": "Main Course",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125","66af3fdbb278586bf2754124"],
+      "description": "Cottage cheese cubes cooked in a buttery tomato sauce.",
+      "price_in_INR": 400
+    },
+    {
+      "name": "Rogan Josh",
+      "category": "Main Course",
+      "type": "Non-Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Traditional Kashmiri lamb curry with aromatic spices.",
+      "price_in_INR": 500
+    },
+    {
+      "name": "Dal Makhani",
+      "category": "Main Course",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754124"],
+      "description": "Slow-cooked black lentils in a creamy, spiced sauce.",
+      "price_in_INR": 350
+    },
+    {
+      "name": "Hyderabadi Chicken Biryani",
+      "category": "Biryani",
+      "type": "Non-Veg",
+      "averageRating":4.6,
+      "description": "Aromatic basmati rice cooked with tender chicken and spices.",
+      "price_in_INR": 480
+    },
+    {
+      "name": "Mutton Biryani",
+      "category": "Biryani",
+      "type": "Non-Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Spiced basmati rice layered with succulent mutton pieces.",
+      "price_in_INR": 550
+    },
+    {
+      "name": "Vegetable Biryani",
+      "category": "Biryani",
+      "averageRating":4.6,
+      "type": "Veg",
+      "restaurants":["66af3fdbb278586bf2754124"],
+      "description": "Aromatic rice mixed with a variety of spiced vegetables.",
+      "price_in_INR": 400
+    },
+    {
+      "name": "Tandoori Chicken",
+      "category": "Tandoor",
+      "type": "Non-Veg",
+      "averageRating":4.6,
+      "description": "Marinated chicken cooked in a traditional tandoor oven.",
+      "price_in_INR": 350
+    },
+    {
+      "name": "Tandoori Paneer",
+      "category": "Tandoor",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Spiced cottage cheese grilled in a tandoor.",
+      "price_in_INR": 300
+    },
+    {
+      "name": "Tandoori Roti",
+      "category": "Breads",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754124"],
+      "description": "Whole wheat flatbread baked in a tandoor.",
+      "price_in_INR": 50
+    },
+    {
+      "name": "Butter Naan",
+      "category": "Breads",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754124"],
+      "description": "Soft, buttery flatbread cooked in a tandoor.",
+      "price_in_INR": 80
+    },
+    {
+      "name": "Masala Chai",
+      "category": "Beverages",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754124"],
+      "description": "Spiced Indian tea brewed with milk.",
+      "price_in_INR": 50
+    },
+    {
+      "name": "Mango Lassi",
+      "category": "Beverages",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754124"],
+      "description": "A refreshing yogurt drink blended with ripe mangoes.",
+      "price_in_INR": 100
+    },
+    {
+      "name": "Sweet Lassi",
+      "category": "Beverages",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754124"],
+      "description": "Traditional sweetened yogurt drink.",
+      "price_in_INR": 80
+    },
+    {
+      "name": "Nimbu Pani",
+      "category": "Beverages",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754124"],
+      "description": "Refreshing lemonade with a hint of cumin.",
+      "price_in_INR": 60
+    },
+    {
+      "name": "Fish Amritsari",
+      "category": "Starters",
+      "type": "Non-Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Crispy batter-fried fish spiced with Amritsari masala.",
+      "price_in_INR": 380
+    },
+    {
+      "name": "Prawn Koliwada",
+      "category": "Starters",
+      "type": "Non-Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Fried prawns coated in a spicy chickpea flour batter.",
+      "price_in_INR": 420
+    },
+    {
+      "name": "Palak Paneer",
+      "category": "Main Course",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754124"],
+      "description": "Spinach and cottage cheese cooked with Indian spices.",
+      "price_in_INR": 350
+    },
+    {
+      "name": "Chicken Korma",
+      "category": "Main Course",
+      "type": "Non-Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Chicken cooked in a rich, creamy, and mildly spiced curry.",
+      "price_in_INR": 480
+    },
+    {
+      "name": "Aloo Gobi",
+      "category": "Main Course",
+      "type": "Veg",
+      "averageRating":4.6,
+      "description": "Potatoes and cauliflower cooked with spices.",
+      "price_in_INR": 280
+    },
+    {
+      "name": "Mutton Rogan Josh",
+      "category": "Main Course",
+      "type": "Non-Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Lamb curry cooked with aromatic spices in a thick gravy.",
+      "price_in_INR": 520
+    },
+    {
+      "name": "Egg Biryani",
+      "category": "Biryani",
+      "type": "Non-Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Spiced rice cooked with boiled eggs.",
+      "price_in_INR": 320
+    },
+    {
+      "name": "Prawn Biryani",
+      "category": "Biryani",
+      "type": "Non-Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Aromatic basmati rice cooked with prawns and spices.",
+      "price_in_INR": 580
+    },
+    {
+      "name": "Paneer Tandoori",
+      "category": "Tandoor",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754124"],
+      "description": "Cottage cheese marinated in spices and grilled in a tandoor.",
+      "price_in_INR": 330
+    },
+    {
+      "name": "Tandoori Fish",
+      "category": "Tandoor",
+      "type": "Non-Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Fish marinated in tandoori spices and grilled to perfection.",
+      "price_in_INR": 450
+    },
+    {
+      "name": "Garlic Naan",
+      "category": "Breads",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Naan bread topped with garlic and butter.",
+      "price_in_INR": 70
+    },
+    {
+      "name": "Pudina Paratha",
+      "category": "Breads",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Whole wheat flatbread flavored with mint and cooked in a tandoor.",
+      "price_in_INR": 60
+    },
+    {
+      "name": "Lemon Soda",
+      "category": "Beverages",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Chilled soda with lemon and a hint of salt.",
+      "price_in_INR": 40
+    },
+    {
+      "name": "Masala Buttermilk",
+      "category": "Beverages",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Spiced yogurt-based drink to cool off.",
+      "price_in_INR": 60
+    },
+    {
+      "name": "Chicken 65",
+      "category": "Starters",
+      "type": "Non-Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
+      "description": "Spicy deep-fried chicken dish popular in South India.",
+      "price_in_INR": 320
+    },
+    {
+      "name": "Vegetable Manchurian",
+      "category": "Starters",
+      "type": "Veg",
+      "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754124","66af3fdbb278586bf2754125"],
+      "description": "Vegetable balls in a spicy, tangy sauce.",
+      "price_in_INR": 240
+    }
+]

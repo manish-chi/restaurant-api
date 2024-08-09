@@ -40,19 +40,3 @@ exports.getNearestRestaurants = catchAsync(async (req,res,next) => {
         data : restaurants,
     });
 });
-
-exports.getNearestRestaurantCard = catchAsync(async (req,res,next) => {
-    try{
-        let path = `../restaurant-api/dev-data/restaurants/near-restau-cards.json`;
-        let data = fs.readFileSync(path,'utf8');
-
-        return res.status(200).json({
-            status : 'success',
-            data : data,
-        });
-    }
-    catch(err){
-        throw new AppError(400,err.Message);
-    } 
-});
-
