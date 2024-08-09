@@ -1,6 +1,6 @@
 let mongoose = require("mongoose");
 
-let menuSchema = require({
+let menuSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -9,8 +9,21 @@ let menuSchema = require({
     type: Number,
     required: true,
   },
+  restaurants : [{
+    type : mongoose.Schema.ObjectId,
+    ref : 'Restaurant'
+  }],
+  description : {
+    type : String,
+    required : true,
+  },
+  price_in_INR : {
+    type : number,
+    required : true,
+    min:10
+  }
 });
 
-let menu = mongoose.model(menuSchema);
+let menu = new mongoose.model('Menu',menuSchema);
 
 module.exports = menu;

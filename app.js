@@ -6,10 +6,15 @@ let restaurantRouter = require("./routers/restaurantRouter");
 let userRouter = require('./routers/userRouter');
 let reservationRouter = require('./routers/reservationRouter');
 let cors = require('cors');
+let paymentRouter = require('./routers/paymentRouter');
+let cardRouter = require('./routers/cardRouter');
+
 
 dotenv.config({ path: "./config.env" });
 
 let app = express();
+
+
 
 if (process.env.NODE_ENV == "development") {
   app.use(morgan("dev"));
@@ -22,6 +27,8 @@ app.use(cors());
 app.use('/api/v1/users',userRouter);
 app.use("/api/v1/restaurants", restaurantRouter);
 app.use('/api/v1/reservations',reservationRouter);
+app.use('/api/v1/payments',paymentRouter);
+app.use('/api/v1/cards',cardRouter);
 
 app.use(globalErrorHandler);
 
