@@ -4,10 +4,20 @@ let menuSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
+    unique : true,
   },
-  amount: {
-    type: Number,
-    required: true,
+  type : {
+    type : String,
+    required:true,
+    enum : ["veg","non-veg","drink"]
+  },
+  image : {
+    type : String,
+    required : true,
+  },
+  category:{
+    type : String,
+    enum: ["Beverages","Starters","Main Course","Breads","Biryani","Tandoor","Tiffins"]
   },
   restaurants : [{
     type : mongoose.Schema.ObjectId,
@@ -18,7 +28,7 @@ let menuSchema = mongoose.Schema({
     required : true,
   },
   price_in_INR : {
-    type : number,
+    type : Number,
     required : true,
     min:10
   }

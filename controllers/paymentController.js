@@ -4,7 +4,7 @@ let Stripe = require('stripe');
 
 
 exports.createSessionUrl = catchAsync(async(req,res,next) => {
-   var items = req.body.items;
+   var items = req.body;
    console.log(items);
 
    stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
@@ -16,13 +16,13 @@ exports.createSessionUrl = catchAsync(async(req,res,next) => {
         price_data : {
             currency : 'usd',
             product_data : {
-                name : item.Name
+                name : item.Name,
             },
             unit_amount : 10000
         },
         quantity : item.Quantity
     }}),
-    success_url : 'https://035a-2406-b400-b9-42cf-8b9-14a5-d4-f973.ngrok-free.app/api/notify',
+    success_url : 'https://7755-2406-b400-b9-42cf-f41a-90b6-a720-a24c.ngrok-free.app/api/notify',
     cancel_url: 'http://localhost:3001/main'
    });
 
