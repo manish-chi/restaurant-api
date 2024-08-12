@@ -2,7 +2,8 @@
     {
       "name": "Paneer Tikka",
       "category": "Starters",
-      "type": "Veg",
+      "type": "veg",
+      "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/PanneerTikka.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754124","66af3fdbb278586bf2754125"],
       "description": "Cottage cheese cubes marinated in spices and grilled.",
@@ -11,7 +12,8 @@
     {
       "name": "Chicken Malai Tikka",
       "category": "Starters",
-      "type": "Non-Veg",
+      "type": "non-veg",
+      "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/chicken_tikka.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Creamy chicken pieces marinated in yogurt and spices.",
@@ -20,7 +22,8 @@
     {
       "name": "Hara Bhara Kabab",
       "category": "Starters",
-      "type": "Veg",
+      "type": "veg",
+      "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/harabarrakabab.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754124"],
       "description": "Vegetarian kababs made with spinach, peas, and spices.",
@@ -29,7 +32,8 @@
     {
       "name": "Mutton Seekh Kebab",
       "category": "Starters",
-      "type": "Non-Veg",
+      "type": "non-veg",
+      "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/muttonshekkabab.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Minced lamb skewers seasoned with herbs and spices.",
@@ -38,7 +42,7 @@
     {
       "name": "Butter Chicken",
       "category": "Main Course",
-      "type": "Non-Veg",
+      "type": "non-veg","image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/butterchicken.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Tender chicken pieces in a rich tomato-based creamy sauce.",
@@ -47,7 +51,7 @@
     {
       "name": "Paneer Butter Masala",
       "category": "Main Course",
-      "type": "Veg",
+      "type": "veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/pannerbuttermasala.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125","66af3fdbb278586bf2754124"],
       "description": "Cottage cheese cubes cooked in a buttery tomato sauce.",
@@ -56,7 +60,7 @@
     {
       "name": "Rogan Josh",
       "category": "Main Course",
-      "type": "Non-Veg",
+      "type": "non-veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/roganhoshjpg.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Traditional Kashmiri lamb curry with aromatic spices.",
@@ -65,7 +69,7 @@
     {
       "name": "Dal Makhani",
       "category": "Main Course",
-      "type": "Veg",
+      "type": "veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/dalmakhni.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754124"],
       "description": "Slow-cooked black lentils in a creamy, spiced sauce.",
@@ -74,15 +78,16 @@
     {
       "name": "Hyderabadi Chicken Biryani",
       "category": "Biryani",
-      "type": "Non-Veg",
+      "type": "non-veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/HyderabadiCheckenBiryani.jpg",
       "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Aromatic basmati rice cooked with tender chicken and spices.",
       "price_in_INR": 480
     },
     {
       "name": "Mutton Biryani",
       "category": "Biryani",
-      "type": "Non-Veg",
+      "type": "non-veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/muttonbiryani.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Spiced basmati rice layered with succulent mutton pieces.",
@@ -92,7 +97,7 @@
       "name": "Vegetable Biryani",
       "category": "Biryani",
       "averageRating":4.6,
-      "type": "Veg",
+      "type": "veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/vegetablebiryani.jpg",
       "restaurants":["66af3fdbb278586bf2754124"],
       "description": "Aromatic rice mixed with a variety of spiced vegetables.",
       "price_in_INR": 400
@@ -100,15 +105,16 @@
     {
       "name": "Tandoori Chicken",
       "category": "Tandoor",
-      "type": "Non-Veg",
+      "type": "non-veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/tandoorichicken.jpg",
       "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Marinated chicken cooked in a traditional tandoor oven.",
       "price_in_INR": 350
     },
     {
       "name": "Tandoori Paneer",
       "category": "Tandoor",
-      "type": "Veg",
+      "type": "veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/tandooripaneer.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Spiced cottage cheese grilled in a tandoor.",
@@ -117,7 +123,7 @@
     {
       "name": "Tandoori Roti",
       "category": "Breads",
-      "type": "Veg",
+      "type": "veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/tandoori_roti.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754124"],
       "description": "Whole wheat flatbread baked in a tandoor.",
@@ -126,7 +132,7 @@
     {
       "name": "Butter Naan",
       "category": "Breads",
-      "type": "Veg",
+      "type": "veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/butternaan.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754124"],
       "description": "Soft, buttery flatbread cooked in a tandoor.",
@@ -135,7 +141,7 @@
     {
       "name": "Masala Chai",
       "category": "Beverages",
-      "type": "Veg",
+      "type": "drink",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-teim-beverages/masalachai.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754124"],
       "description": "Spiced Indian tea brewed with milk.",
@@ -144,7 +150,7 @@
     {
       "name": "Mango Lassi",
       "category": "Beverages",
-      "type": "Veg",
+      "type": "drink",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-teim-beverages/mongolassi.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754124"],
       "description": "A refreshing yogurt drink blended with ripe mangoes.",
@@ -153,7 +159,7 @@
     {
       "name": "Sweet Lassi",
       "category": "Beverages",
-      "type": "Veg",
+      "type": "drink",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-teim-beverages/sweetlassi.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754124"],
       "description": "Traditional sweetened yogurt drink.",
@@ -162,7 +168,7 @@
     {
       "name": "Nimbu Pani",
       "category": "Beverages",
-      "type": "Veg",
+      "type": "drink",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-teim-beverages/lemonsoda.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754124"],
       "description": "Refreshing lemonade with a hint of cumin.",
@@ -171,7 +177,7 @@
     {
       "name": "Fish Amritsari",
       "category": "Starters",
-      "type": "Non-Veg",
+      "type": "non-veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/fishamritsari.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Crispy batter-fried fish spiced with Amritsari masala.",
@@ -180,7 +186,7 @@
     {
       "name": "Prawn Koliwada",
       "category": "Starters",
-      "type": "Non-Veg",
+      "type": "non-veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/prawnkoliwada.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Fried prawns coated in a spicy chickpea flour batter.",
@@ -189,7 +195,7 @@
     {
       "name": "Palak Paneer",
       "category": "Main Course",
-      "type": "Veg",
+      "type": "veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/palakpaneer.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754124"],
       "description": "Spinach and cottage cheese cooked with Indian spices.",
@@ -198,7 +204,7 @@
     {
       "name": "Chicken Korma",
       "category": "Main Course",
-      "type": "Non-Veg",
+      "type": "non-veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/chickenkorma.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Chicken cooked in a rich, creamy, and mildly spiced curry.",
@@ -207,15 +213,16 @@
     {
       "name": "Aloo Gobi",
       "category": "Main Course",
-      "type": "Veg",
+      "type": "veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/aloogobi.jpg",
       "averageRating":4.6,
+      "restaurants":["66af3fdbb278586bf2754124"],
       "description": "Potatoes and cauliflower cooked with spices.",
       "price_in_INR": 280
     },
     {
       "name": "Mutton Rogan Josh",
       "category": "Main Course",
-      "type": "Non-Veg",
+      "type": "non-veg",   "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/rogangosh.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Lamb curry cooked with aromatic spices in a thick gravy.",
@@ -224,7 +231,7 @@
     {
       "name": "Egg Biryani",
       "category": "Biryani",
-      "type": "Non-Veg",
+      "type": "non-veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/eggbiryani.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Spiced rice cooked with boiled eggs.",
@@ -233,7 +240,7 @@
     {
       "name": "Prawn Biryani",
       "category": "Biryani",
-      "type": "Non-Veg",
+      "type": "non-veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/prawnbiryani.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Aromatic basmati rice cooked with prawns and spices.",
@@ -242,7 +249,7 @@
     {
       "name": "Paneer Tandoori",
       "category": "Tandoor",
-      "type": "Veg",
+      "type": "veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/tandooripaneer.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754124"],
       "description": "Cottage cheese marinated in spices and grilled in a tandoor.",
@@ -251,7 +258,7 @@
     {
       "name": "Tandoori Fish",
       "category": "Tandoor",
-      "type": "Non-Veg",
+      "type": "non-veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/TandooriFish.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Fish marinated in tandoori spices and grilled to perfection.",
@@ -260,7 +267,7 @@
     {
       "name": "Garlic Naan",
       "category": "Breads",
-      "type": "Veg",
+      "type": "veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/garlicnaan.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Naan bread topped with garlic and butter.",
@@ -269,7 +276,7 @@
     {
       "name": "Pudina Paratha",
       "category": "Breads",
-      "type": "Veg",
+      "type": "veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/pudinaparatha.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Whole wheat flatbread flavored with mint and cooked in a tandoor.",
@@ -278,7 +285,7 @@
     {
       "name": "Lemon Soda",
       "category": "Beverages",
-      "type": "Veg",
+      "type": "drink",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-teim-beverages/lemonsoda.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Chilled soda with lemon and a hint of salt.",
@@ -287,7 +294,7 @@
     {
       "name": "Masala Buttermilk",
       "category": "Beverages",
-      "type": "Veg",
+      "type": "drink",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-teim-beverages/buttermilk.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Spiced yogurt-based drink to cool off.",
@@ -296,7 +303,7 @@
     {
       "name": "Chicken 65",
       "category": "Starters",
-      "type": "Non-Veg",
+      "type": "non-veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-non-veg/chicken65.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754125"],
       "description": "Spicy deep-fried chicken dish popular in South India.",
@@ -305,7 +312,7 @@
     {
       "name": "Vegetable Manchurian",
       "category": "Starters",
-      "type": "Veg",
+      "type": "veg",  "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/vegitableManchuria.jpg",
       "averageRating":4.6,
       "restaurants":["66af3fdbb278586bf2754124","66af3fdbb278586bf2754125"],
       "description": "Vegetable balls in a spicy, tangy sauce.",

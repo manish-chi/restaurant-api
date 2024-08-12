@@ -1,0 +1,162 @@
+{
+    "type": "AdaptiveCard",
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.6",
+    "body": [
+        {
+            "type": "Image",
+            "width": "300px",
+            "height": "180px",
+            "url": "https://dhabadeliciousstorage.blob.core.windows.net/restaurant-images/restaurant-2-veg.jpg"
+        },
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": "auto",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "text": "Paneer Butter Masala",
+                            "wrap": true,
+                            "fontType": "Default",
+                            "size": "medium",
+                            "style": "default",
+                            "weight": "Bolder"
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": "stretch",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://dhabadeliciousstorage.blob.core.windows.net/icons/icons8-veg-48.png",
+                            "width": "20px",
+                            "height": "20px",
+                            "horizontalAlignment": "Left",
+                            "spacing": "Medium"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": "auto",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "text": "Price :",
+                            "wrap": true,
+                            "size": "Default"
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": "stretch",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "text": "235/-",
+                            "wrap": true,
+                            "size": "Default"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "Container",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "This is paneer butter masala, I have few amazing curries with it. Please help me out with the description.",
+                    "wrap": true,
+                    "isSubtle": true,
+                    "size": "Small",
+                    "weight": "Default",
+                    "fontType": "Default",
+                    "style": "default"
+                },
+                {
+                    "type": "Container",
+                    "items": [
+                        {
+                            "type": "ColumnSet",
+                            "columns": [
+                                {
+                                    "type": "Column",
+                                    "width": "auto",
+                                    "items": [
+                                        {
+                                            "type": "TextBlock",
+                                            "text": "Quantity : ",
+                                            "wrap": true,
+                                            "size": "Medium"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "Column",
+                                    "width": "100px",
+                                    "items": [
+                                        {
+                                            "type": "Input.ChoiceSet",
+                                            "choices": [
+                                                {
+                                                    "title": "1",
+                                                    "value": "1"
+                                                },
+                                                {
+                                                    "title": "2",
+                                                    "value": "2"
+                                                },
+                                                {
+                                                    "title": "3",
+                                                    "value": "3"
+                                                }
+                                            ],
+                                            "placeholder": "0",
+                                            "isRequired": true,
+                                            "id": "quantity",
+                                             "errorMessage": "Please enter values between 0 to 3",
+                                             "label": "valid upto 3"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": "auto",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://dhabadeliciousstorage.blob.core.windows.net/icons/addToCart.jpg",
+                            "width": "140px",
+                            "height": "40px",
+                            "selectAction": {
+                                "type": "Action.Submit",
+                                "id": "AddToCart"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
