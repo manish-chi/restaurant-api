@@ -22,7 +22,7 @@ exports.createSessionUrl = catchAsync(async(req,res,next) => {
         },
         quantity : item.Quantity
     }}),
-    success_url : 'https://7755-2406-b400-b9-42cf-f41a-90b6-a720-a24c.ngrok-free.app/api/notify',
+    success_url : `${process.env.BOT_APP_URL}/api/notify`,
     cancel_url: 'http://localhost:3001/main'
    });
 
