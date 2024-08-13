@@ -9,6 +9,7 @@ let cors = require('cors');
 let paymentRouter = require('./routers/paymentRouter');
 let cardRouter = require('./routers/cardRouter');
 let menuRouter = require('./routers/menuRouter');
+let orderRouter = require('./routers/orderRouter');
 
 
 dotenv.config({ path: "./config.env" });
@@ -31,6 +32,7 @@ app.use('/api/v1/reservations',reservationRouter);
 app.use('/api/v1/payments',paymentRouter);
 app.use('/api/v1/cards',cardRouter);
 app.use('/api/v1/menu',menuRouter);
+app.use('/api/v1/orders',orderRouter);
 
 app.use(globalErrorHandler);
 
