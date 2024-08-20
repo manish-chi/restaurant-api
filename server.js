@@ -23,6 +23,6 @@ mongoose
 
 let PORT = process.env.PORT || 8000;
 
-let server = app.listen(PORT, () => {
+let server = app.listen(PORT,'0.0.0.0', () => {
   console.log(`Server successfully started at ${PORT}`);
 });
