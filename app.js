@@ -24,7 +24,12 @@ if (process.env.NODE_ENV == "development") {
 
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({
+  origin: 'https://purple-ground-0e21d410f.5.azurestaticapps.net',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 
 app.use('/api/v1/users',userRouter);
 app.use("/api/v1/restaurants", restaurantRouter);
