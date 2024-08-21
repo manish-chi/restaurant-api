@@ -26,8 +26,8 @@ app.use(express.json());
 
 app.use(cors({
   origin: 'https://purple-ground-0e21d410f.5.azurestaticapps.net',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200,
 }));
 
 
