@@ -25,7 +25,7 @@ if (process.env.NODE_ENV == "development") {
 app.use(express.json());
 
 app.use(cors({
-  origin: 'https://purple-ground-0e21d410f.5.azurestaticapps.net',
+  origin: '*',
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200,
 }));
