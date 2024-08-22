@@ -91,7 +91,8 @@ exports.protect = catchAsync(async (req, res, next) => {
 
 exports.generateDirectLineToken = catchAsync(async (req, res, next) => {
   const userId = "dl_" + req.params.id;
-
+  
+  
   if (!userId) throw new AppError(404, "Sorry, User with ID not found!");
 
   try {
