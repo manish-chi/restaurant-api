@@ -6,6 +6,7 @@ let restaurantRouter = require("./routers/restaurantRouter");
 let userRouter = require('./routers/userRouter');
 let reservationRouter = require('./routers/reservationRouter');
 let cors = require('cors');
+let path = require('path');
 let paymentRouter = require('./routers/paymentRouter');
 let cardRouter = require('./routers/cardRouter');
 let menuRouter = require('./routers/menuRouter');
@@ -17,6 +18,13 @@ dotenv.config({ path: "./config.env" });
 let app = express();
 
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'build')));
+
+// For any route, serve the React index.html file
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 if (process.env.NODE_ENV == "development") {
   app.use(morgan("dev"));
