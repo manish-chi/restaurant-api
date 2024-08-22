@@ -11,6 +11,7 @@ let paymentRouter = require('./routers/paymentRouter');
 let cardRouter = require('./routers/cardRouter');
 let menuRouter = require('./routers/menuRouter');
 let orderRouter = require('./routers/orderRouter');
+let authRouter = require('./routers/authRouter');
 
 
 dotenv.config({ path: "./config.env" });
@@ -21,8 +22,8 @@ let app = express();
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'build')));
 
-// For any route, serve the React index.html file
-app.get('*', (req, res) => {
+// // For any route, serve the React index.html file
+app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
@@ -45,6 +46,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/config',authRouter);
 app.use('/api/v1/users',userRouter);
 app.use("/api/v1/restaurants", restaurantRouter);
 app.use('/api/v1/reservations',reservationRouter);
