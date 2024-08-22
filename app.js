@@ -22,10 +22,10 @@ let app = express();
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'build')));
 
-// // // For any route, serve the React index.html file
-// app.get('/login', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
+// // For any route, serve the React index.html file
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 if (process.env.NODE_ENV == "development") {
   app.use(morgan("dev"));
