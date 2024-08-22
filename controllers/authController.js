@@ -88,3 +88,40 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   next();
 });
+
+exports.generateDirectLineToken = catchAsync(async (req, res, next) => {
+  const userId = "dl_" + req.params.id;
+
+  if (!userId) throw new AppError(404, "Sorry, User with ID not found!");
+
+  try {
+    const response = await fetch(
+      "https://directline.botframework.com/v3/directline/tokens/generate",
+      {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + process.env.DIRECTLINE_SECRET,
+        },
+        json: {
+          user: { id: userId ,name : 'manish chitre' },
+          trustedOrigins: ["http://localhost:8000"]
+        },
+      }
+    );
+
+    console.log(response);
+
+    if (response.ok) {
+
+      const body = await response.json();
+      res.json({
+        token: body.token,
+        userId: userId,
+      });
+    } else {
+      throw new AppError(500, "Call to retrieve token from Direct Line failed");
+    }
+  } catch (err) {
+    throw new AppError(err.statusCode,err.message);
+  }
+});
