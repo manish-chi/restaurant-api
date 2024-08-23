@@ -18,12 +18,14 @@ dotenv.config({ path: "./config.env" });
 
 let app = express();
 
+console.log(__dirname);
+
 //Push again!
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'build')));
 
 // // For any route, serve the React index.html file
-app.get('/login', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
