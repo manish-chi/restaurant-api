@@ -46,7 +46,7 @@ app.use(express.json());
 //   next();
 // });
 
-router.get('/', function(req, res, next) {
+app.get('/', function(req, res, next) {
   Task.find()
     .then((tasks) => {      
       const currentTasks = tasks.filter(task => !task.completed);
