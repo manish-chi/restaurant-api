@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.route('/signup').post(authController.signup);
 router.route('/login').post(authController.login);
-router.route('/:id').delete(userController.deleteOne);
+router.route('/:id').get(userController.getOne).delete(userController.deleteOne);
 
 module.exports = router;
