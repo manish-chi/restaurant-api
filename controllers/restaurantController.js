@@ -2,6 +2,7 @@ let handlerFactory = require("../controllers/handlerFactory");
 let Restaurant = require("../models/restaurantModel");
 let catchAsync = require('../utils/catchAsync');
 let AppError = require('../utils/appError');
+let sendMail = require('../utils/mailer');
 let fs = require('fs');
 
 exports.getAllRestaurants = handlerFactory.getAll(Restaurant);

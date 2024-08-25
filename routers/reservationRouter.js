@@ -5,7 +5,7 @@ let router = express.Router();
 router.route("/:id").get(reservationController.GetReservation);
 
 router.route('/').post(
-  reservationController.MakeReservation
+  reservationController.MakeReservation,reservationController.sendConfirmationMailAfterReservation
 );
 
 module.exports = router;
