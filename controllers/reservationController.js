@@ -42,7 +42,7 @@ exports.sendConfirmationMailAfterReservation = catchAsync(
         status: "success",
       });
     } catch (err) {
-      return next(new AppError(500,err.message));
+      return next(new AppError(500, err.message));
     }
   }
 );

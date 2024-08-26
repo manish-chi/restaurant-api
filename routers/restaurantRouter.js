@@ -12,6 +12,7 @@ router
 .post(restaurantController.addRestaurant);
 
 
+
 router
 .route("/:id")
 .get(restaurantController.getRestaurant)

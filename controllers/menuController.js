@@ -28,3 +28,10 @@ exports.getMenuItemsByName = catchAsync(async (req, res, next) => {
 
 
 exports.addDish = handleFactory.addOne(Menu);
+
+exports.top3Dishes = catchAsync(async(req,res,next) => {
+  
+
+
+
+})

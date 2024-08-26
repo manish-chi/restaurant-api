@@ -1,6 +1,8 @@
-let mongoose = require("mongoose");
-let validator = require("validator");
-let bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
+const validator = require("validator");
+const bcrypt = require("bcrypt");
+const crypto = require("crypto");
+const { passwordChangedAt } = require("../controllers/authController");
 
 let userSchema = new mongoose.Schema({
   name: {
@@ -25,6 +27,15 @@ let userSchema = new mongoose.Schema({
   },
   passwordChangedAt: {
     type: Date,
+    select: false,
+  },
+  passwordResetToken: {
+    type: String,
+    select: false,
+  },
+  passwordResetTokenExpires: {
+    type: Date,
+    select: false,
   },
   role: {
     type: String,
@@ -45,6 +56,23 @@ userSchema.pre("save", async function (next) {
   this.passwordConfirm = undefined;
   next();
 });
+
+userSchema.methods.compareSamePasswords = async function (updatedPassword) {
+  return this.password === (await bcrypt.hash(updatedPassword, 12));
+};
+
+userSchema.methods.createResetToken = async function () {
+  let resetToken = crypto.randomBytes(32).toString("hex");
+
+  this.passwordResetToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  this.passwordResetTokenExpires = Date.now() + 10 * 60 * 1000;
+
+  return resetToken;
+};
 
 userSchema.methods.comparePasswords = async function (
   userPassword,
