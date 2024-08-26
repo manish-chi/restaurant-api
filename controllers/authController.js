@@ -2,6 +2,8 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const User = require("../models/userModel");
 const JWT = require("jsonwebtoken");
+const crypto = require("crypto");
+const sendMail = require('../utils/mailer');
 
 function sendAccessToken(user, res) {
   let userId = user._id;
@@ -64,6 +66,112 @@ exports.login = catchAsync(async (req, res, next) => {
   sendAccessToken(user, res);
 });
 
+exports.updatePassword = catchAsync(async (req, res, next) => {
+  //1. Get the current User
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user)
+    return next(
+      new AppError(
+        404,
+        `User with given address ${req.body.email} could not be found! Please enter correct email address`
+      )
+    );
+
+  if (user.compareSamePasswords(req.body.updatedPassword)) {
+    return next(
+      new AppError(
+        401,
+        "The current password and updated password is same,please provide new password."
+      )
+    );
+  }
+
+  //2. Get the current Password check that password with backend password using bycrpt
+  if (!user.comparePasswords(req.body.currentPassword, user.password)) {
+    return next(
+      new AppError(
+        403,
+        "Sorry, given password is incorrect! Please provide valid password"
+      )
+    );
+  }
+
+  //3.If it's true, just forward the request else don't.
+  user.password = req.body.updatedPassword;
+
+  await user.save();
+
+  return res.status(200).json({
+    status: "success",
+    data: user,
+  });
+});
+
+exports.forgotPassword = catchAsync(async (req, res, next) => {
+  const user = await User.findOne({ email: req.body.email });
+
+  if (!user)
+    return next(new AppError(404, "User with given email address not found!"));
+
+  const resetToken = await user.createResetToken();
+
+  await user.save({ validateBeforeSave: false });
+
+  const URL = `Please send PATCH request to http://${req.hostname}/api/v1/users/resetPassword/${resetToken}.If you have not send the request, please ignore.`;
+
+  let options = {
+    email: user.email,
+    subject: "Your password reset token (valid for 10 min)",
+    message: URL,
+  };
+
+  try {
+    await sendMail(options);
+
+    return res.status(200).json({
+      status: "success",
+      message: "A Token has been sent to your mail",
+    });
+  } catch (err) {
+    console.log(err);
+    return next(new AppError(err.statusCode, err.message));
+  }
+});
+
+exports.resetPassword = catchAsync(async (req, res, next) => {
+  const resetToken = req.params.token;
+
+  const passwordResetToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  const user = await User.findOne({
+    passwordResetToken: { $eq: `${passwordResetToken}` },
+    passwordResetTokenExpires: { $gt: Date.now() },
+  });
+
+  if (!user)
+    return next(
+      new AppError(403, "Password Token is incorrect or has been expired!")
+    );
+
+  this.passwordResetToken = undefined;
+  this.passwordResetTokenExpires = undefined;
+  this.passwordChangedAt = Date.now();
+
+  this.password = req.body.password;
+  this.passwordConfirm = req.body.passwordConfirm;
+
+  await user.save();
+
+  return res.status(200).json({
+    status: "success",
+    data: { user },
+  });
+});
+
 exports.protect = catchAsync(async (req, res, next) => {
   if (!req.headers.authorization) {
     throw new AppError(400, "Authorization headers are not provided.");
@@ -91,7 +199,6 @@ exports.protect = catchAsync(async (req, res, next) => {
 
 exports.generateDirectLineToken = catchAsync(async (req, res, next) => {
   const userId = "dl_" + req.params.id;
-  
 
   if (!userId) throw new AppError(404, "Sorry, User with ID not found!");
 
@@ -104,8 +211,8 @@ exports.generateDirectLineToken = catchAsync(async (req, res, next) => {
           Authorization: "Bearer " + process.env.DIRECTLINE_SECRET,
         },
         json: {
-          user: { id: userId ,name : 'manish chitre' },
-          trustedOrigins: ["http://localhost:8000"]
+          user: { id: userId, name: "manish chitre" },
+          trustedOrigins: ["http://localhost:8000"],
         },
       }
     );
@@ -120,6 +227,6 @@ exports.generateDirectLineToken = catchAsync(async (req, res, next) => {
       throw new AppError(500, "Call to retrieve token from Direct Line failed");
     }
   } catch (err) {
-    throw new AppError(err.statusCode,err.message);
+    throw new AppError(err.statusCode, err.message);
   }
 });
