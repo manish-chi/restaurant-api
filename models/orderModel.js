@@ -8,10 +8,12 @@ const catchAsync = require("../utils/catchAsync");
 let orderSchema = mongoose.Schema({
   restaurant: {
     type: mongoose.Schema.ObjectId,
+    ref: "Restaurant",
     required: true,
   },
   customer: {
     type: mongoose.Schema.ObjectId,
+    ref: "DD-User",
     required: true,
   },
   createdAt: {
@@ -21,10 +23,12 @@ let orderSchema = mongoose.Schema({
   items: [
     {
       type: mongoose.Schema.ObjectId,
+      ref: "Menu",
       required: true,
     },
   ],
 });
+
 
 orderSchema.post(
   "save",
@@ -47,6 +51,12 @@ orderSchema.post(
     }
   })
 );
+
+orderSchema.virtual('names',{
+  ref : 'Menu',
+  foreignField : '_id',
+  localField : 'items'
+})
 
 let Order = mongoose.model("Order", orderSchema);
 
