@@ -57,10 +57,6 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-userSchema.methods.compareSamePasswords = async function (updatedPassword) {
-  return this.password === (await bcrypt.hash(updatedPassword, 12));
-};
-
 userSchema.methods.createResetToken = async function () {
   let resetToken = crypto.randomBytes(32).toString("hex");
 

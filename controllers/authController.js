@@ -3,7 +3,7 @@ const AppError = require("../utils/appError");
 const User = require("../models/userModel");
 const JWT = require("jsonwebtoken");
 const crypto = require("crypto");
-const sendMail = require('../utils/mailer');
+const sendMail = require("../utils/mailer");
 
 function sendAccessToken(user, res) {
   let userId = user._id;
@@ -78,15 +78,6 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
       )
     );
 
-  if (user.compareSamePasswords(req.body.updatedPassword)) {
-    return next(
-      new AppError(
-        401,
-        "The current password and updated password is same,please provide new password."
-      )
-    );
-  }
-
   //2. Get the current Password check that password with backend password using bycrpt
   if (!user.comparePasswords(req.body.currentPassword, user.password)) {
     return next(
@@ -157,12 +148,12 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
       new AppError(403, "Password Token is incorrect or has been expired!")
     );
 
-  this.passwordResetToken = undefined;
-  this.passwordResetTokenExpires = undefined;
-  this.passwordChangedAt = Date.now();
+  user.passwordResetToken = undefined;
+  user.passwordResetTokenExpires = undefined;
+  user.passwordChangedAt = Date.now();
 
-  this.password = req.body.password;
-  this.passwordConfirm = req.body.passwordConfirm;
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
 
   await user.save();
 
