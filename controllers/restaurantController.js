@@ -40,4 +40,5 @@ exports.getNearestRestaurants = catchAsync(async (req,res,next) => {
         status : 'Success',
         data : restaurants,
     });
+    
 });
