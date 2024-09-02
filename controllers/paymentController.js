@@ -12,7 +12,7 @@ exports.createSessionUrl = catchAsync(async(req,res,next) => {
    let session = await stripe.checkout.sessions.create({
     payment_method_types : ['card'],
     mode : 'payment',
-    line_items : items.map(item => {return{
+    line_items : items.map(item => { return{
         price_data : {
             currency : 'usd',
             product_data : {

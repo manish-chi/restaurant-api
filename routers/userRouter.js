@@ -5,9 +5,13 @@ const router = express.Router();
 
 router.route("/signup").post(authController.signup);
 router.route("/login").post(authController.login);
-router.route("/update-password").patch(authController.updatePassword);
+
 router.route("/forgot-password").post(authController.forgotPassword);
 router.route("/reset-password/:token").patch(authController.resetPassword);
+
+router.use(authController.protect);
+
+router.route("/update-password").patch(authController.updatePassword);
 router
   .route("/:id")
   .get(userController.getOne)

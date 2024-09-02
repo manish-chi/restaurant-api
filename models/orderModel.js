@@ -1,6 +1,5 @@
-let mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const sendMail = require("../utils/mailer");
-const userController = require("../controllers/userController");
 const AppError = require("../utils/appError");
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
@@ -52,7 +51,7 @@ orderSchema.post(
   })
 );
 
-orderSchema.virtual('names',{
+orderSchema.virtual('name',{
   ref : 'Menu',
   foreignField : '_id',
   localField : 'items'

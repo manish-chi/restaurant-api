@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/static/css/main.f1ec8c1a.css",
-    "main.js": "/static/js/main.5528ca13.js",
+    "main.js": "/static/js/main.6294707c.js",
     "static/media/WebPage.jpg": "/static/media/WebPage.21403311e7249ac8b796.jpg",
     "static/media/dd-background-new.jpg": "/static/media/dd-background-new.ac70cd01d18b28738d62.jpg",
     "static/media/dd-icon.png": "/static/media/dd-icon.769b61b1aec6363e8ba7.png",
     "index.html": "/index.html",
     "static/media/index.cjs": "/static/media/index.cd351d7c31d0d3fccf96.cjs",
     "main.f1ec8c1a.css.map": "/static/css/main.f1ec8c1a.css.map",
-    "main.5528ca13.js.map": "/static/js/main.5528ca13.js.map"
+    "main.6294707c.js.map": "/static/js/main.6294707c.js.map"
   },
   "entrypoints": [
     "static/css/main.f1ec8c1a.css",
-    "static/js/main.5528ca13.js"
+    "static/js/main.6294707c.js"
   ]
 }

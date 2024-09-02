@@ -1,7 +1,9 @@
-let express = require('express');
-let menuController = require('../controllers/menuController');
+const express = require('express');
+const menuController = require('../controllers/menuController');
 const router = express.Router({mergeParams : true});
+const authController = require('../controllers/authController');
 
+router.use(authController.protect);
 router.route('/').get(menuController.getMenuItemsByName);
 router.route('/').post(menuController.addDish);
 
