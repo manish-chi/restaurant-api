@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const paymentController = require('../controllers/paymentController');
+const authController = require('../controllers/authController');
 
-router.route('/create-card-session').post(paymentController.createSessionUrl);
+router.use(authController.protect);
+
+router.route('/create-cart-session').post(paymentController.createSessionUrl);
 
 module.exports = router;

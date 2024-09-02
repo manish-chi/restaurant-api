@@ -1,8 +1,10 @@
-let express = require("express");
-let router = express.Router();
-let restaurantController = require("../controllers/restaurantController");
-let menuRouter = require('../routers/menuRouter');
+const express = require("express");
+const router = express.Router();
+const restaurantController = require("../controllers/restaurantController");
+const authController = require('../controllers/authController');
+const menuRouter = require('../routers/menuRouter');
 
+router.use(authController.protect);
 
 router.route('/nearby-restaurants').get(restaurantController.getNearestRestaurants);
 

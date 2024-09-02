@@ -1,6 +1,9 @@
-let express = require("express");
-let reservationController = require("../controllers/reservationController");
-let router = express.Router();
+const express = require("express");
+const reservationController = require("../controllers/reservationController");
+const authController = require('../controllers/authController');
+const router = express.Router();
+
+router.use(authController.protect);
 
 router.route("/:id").get(reservationController.GetReservation);
 
