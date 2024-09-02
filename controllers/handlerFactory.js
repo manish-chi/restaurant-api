@@ -1,6 +1,8 @@
 const catchAsync = require("../utils/catchAsync");
 const AppError = require('../utils/appError');
 const fs = require('fs');
+const path = require('path');
+
 
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -49,7 +51,9 @@ exports.getCard = (path) =>{
   return catchAsync(async(req,res,next) => {
     try{
 
-      let data = fs.readFileSync(path,'utf8');
+      const filePath = path.join(__dirname, path);
+      
+      let data = fs.readFileSync(filePath,'utf8');
 
       return res.status(200).json({
           status : 'success',
