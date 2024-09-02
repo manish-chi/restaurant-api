@@ -1,8 +1,7 @@
 const catchAsync = require("../utils/catchAsync");
-const AppError = require('../utils/appError');
-const fs = require('fs');
-const path = require('path');
-
+const AppError = require("../utils/appError");
+const fs = require("fs");
+const path = require("path");
 
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
@@ -15,11 +14,11 @@ exports.getAll = (Model) =>
     });
   });
 
-exports.getOne = (Model,popOptions) => {
+exports.getOne = (Model, popOptions) => {
   return catchAsync(async (req, res, next) => {
     let query = Model.findById(req.params.id);
 
-    if(popOptions) query.populate(popOptions)
+    if (popOptions) query.populate(popOptions);
 
     let result = await query;
 
@@ -32,7 +31,7 @@ exports.getOne = (Model,popOptions) => {
       },
     });
   });
-}; 
+};
 
 exports.addOne = (Model) => {
   return catchAsync(async (req, res, next) => {
@@ -47,24 +46,22 @@ exports.addOne = (Model) => {
   });
 };
 
-exports.getCard = (path) =>{
-  return catchAsync(async(req,res,next) => {
-    try{
+exports.getCard = (pathOfFile) => {
+  return catchAsync(async (req, res, next) => {
+    try {
+      const filePath = path.join(__dirname, pathOfFile);
 
-      const filePath = path.join(__dirname, path);
-      
-      let data = fs.readFileSync(filePath,'utf8');
+      let data = fs.readFileSync(filePath, "utf8");
 
       return res.status(200).json({
-          status : 'success',
-          data : data,
+        status: "success",
+        data: data,
       });
-  }
-  catch(err){
-      throw new AppError(400,err.message);
-  } 
+    } catch (err) {
+      throw new AppError(400, err.message);
+    }
   });
-}
+};
 
 exports.updateOne = (Model) => {
   return catchAsync(async (req, res, next) => {
