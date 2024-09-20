@@ -4,36 +4,55 @@ let menuSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
-    unique : true,
+    unique: true,
   },
-  type : {
-    type : String,
-    required:true,
-    enum : ["veg","non-veg","drink"]
+  type: {
+    type: String,
+    required: true,
+    enum: ["veg", "non-veg", "drink"],
   },
-  image : {
-    type : String,
-    required : true,
+  image: {
+    type: String,
+    required: true,
   },
-  category:{
-    type : String,
-    enum: ["Beverages","Starters","Main Course","Breads","Biryani","Tandoor","Tiffins"]
+  category: {
+    type: String,
+    enum: [
+      "Beverages",
+      "Starters",
+      "Main Course",
+      "Breads",
+      "Biryani",
+      "Tandoor",
+      "Tiffins",
+    ],
   },
-  restaurants : [{
-    type : mongoose.Schema.ObjectId,
-    ref : 'Restaurant'
-  }],
-  description : {
-    type : String,
-    required : true,
+  restaurants: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Restaurant",
+    },
+  ],
+  description: {
+    type: String,
+    required: true,
   },
-  price_in_INR : {
-    type : Number,
-    required : true,
-    min:10
-  }
+  price_in_INR: {
+    type: Number,
+    required: true,
+    min: 10,
+  },
 });
 
-let menu = new mongoose.model('Menu',menuSchema);
+menuSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "restaurants",
+    select: "-__v",
+  });
+  
+  next();
+});
+
+let menu = new mongoose.model("Menu", menuSchema);
 
 module.exports = menu;

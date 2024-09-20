@@ -8,6 +8,7 @@ router.route('/nearby-restaurants').get(restaurantController.getNearestRestauran
 
 router
 .route("/")
+.get(restaurantController.getRestaurantUsingMenuItemNames)
 .get(restaurantController.getAllRestaurants)
 .post(restaurantController.addRestaurant);
 
