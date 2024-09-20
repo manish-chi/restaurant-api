@@ -1,12 +1,8 @@
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 const fs = require("fs");
-<<<<<<< HEAD
-const path = require("path");
-=======
 const AppError = require("../utils/appError");
 const fs = require("fs");
->>>>>>> mail-feature-for-reservation
 
 exports.getAll = (Model) => {
   return catchAsync(async (req, res, next) => {
@@ -51,30 +47,17 @@ exports.addOne = (Model) => {
   });
 };
 
-<<<<<<< HEAD
-exports.getCard = (pathOfFile) => {
-  return catchAsync(async (req, res, next) => {
-    try {
-      const filePath = path.join(__dirname, pathOfFile);
-
-      let data = fs.readFileSync(filePath, "utf8");
-=======
 exports.getCard = (path) => {
   return catchAsync(async (req, res, next) => {
     try {
       let data = fs.readFileSync(path, "utf8");
->>>>>>> mail-feature-for-reservation
 
       return res.status(200).json({
         status: "success",
         data: data,
       });
     } catch (err) {
-<<<<<<< HEAD
-      throw new AppError(400, err.message);
-=======
       return next(new AppError(err.statusCode,err.message));
->>>>>>> mail-feature-for-reservation
     }
   });
 };
