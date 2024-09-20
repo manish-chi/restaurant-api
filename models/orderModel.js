@@ -28,34 +28,39 @@ let orderSchema = mongoose.Schema({
   ],
 });
 
+orderSchema.virtual("name", {
+  ref: "Menu",
+  foreignField: "_id",
+  localField: "items",
+});
 
-orderSchema.post(
-  "save",
-  catchAsync(async function (doc) {
-    var user = await User.findById({ _id: this.customer });
-    console.log(user);
-    console.log("==============");
-    console.log(doc);
+orderSchema.pre("save", function (next) {
+  this.populate({
+    path: "restaurant",
+    select: "-v",
+  });
 
-    let options = {
-      email: user.email,
-      subject: `Your Order has been placed! (OrderID : ${doc._id})`,
-      message: "Your Order has been placed for Items!",
-    };
+  next();
+});
 
-    try {
-      sendMail(options);
-    } catch (err) {
-      throw new AppError(err.statusCode, err.message);
-    }
-  })
-);
+orderSchema.post("save", async function (doc) {
+  var user = await User.findById({ _id: this.customer });
+  console.log(user);
+  console.log("==============");
+  console.log(doc);
 
-orderSchema.virtual('name',{
-  ref : 'Menu',
-  foreignField : '_id',
-  localField : 'items'
-})
+  let options = {
+    email: user.email,
+    subject: `Your Order(${doc._id}) has been confirmed @ ${this.restaurant.name}`,
+    message: `Hi ${user.name}👋, Your Order has been confirmed.  \nTime : ${this.createdAt}`,
+  };
+
+  try {
+    sendMail(options);
+  } catch (err) {
+    throw new AppError(err.statusCode, err.message);
+  }
+});
 
 let Order = mongoose.model("Order", orderSchema);
 
