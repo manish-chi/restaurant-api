@@ -1,6 +1,6 @@
 let mongoose = require("mongoose");
 
-let menuSchema = mongoose.Schema({
+let foodSchema = mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -44,7 +44,7 @@ let menuSchema = mongoose.Schema({
   },
 });
 
-menuSchema.pre(/^find/, function (next) {
+foodSchema.pre(/^find/, function (next) {
   this.populate({
     path: "restaurants",
     select: "-__v",
@@ -53,6 +53,6 @@ menuSchema.pre(/^find/, function (next) {
   next();
 });
 
-let menu = new mongoose.model("Menu", menuSchema);
+let food = new mongoose.model("foods", foodSchema);
 
-module.exports = menu;
+module.exports = food;

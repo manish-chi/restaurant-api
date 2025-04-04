@@ -1,5 +1,8 @@
 {
   "dependencies": {
+    "@azure/search-documents": "^12.1.0",
+    "@pinecone-database/pinecone": "^5.1.1",
+    "axios": "^1.8.4",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "cros": "^1.0.1",
@@ -14,6 +17,7 @@
     "node": "^20.16.0",
     "nodemailer": "^6.9.14",
     "nodemon": "^3.1.4",
+    "openai": "^4.91.1",
     "path": "^0.12.7",
     "rate-limit": "^0.1.1",
     "stripe": "^16.6.0",

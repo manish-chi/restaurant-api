@@ -6,6 +6,7 @@ const authController = require('../controllers/authController');
 router.use(authController.protect);
 router.route('/').get(menuController.getMenuItemsByName);
 router.route('/').post(menuController.addDish);
+router.route('/search').get(menuController.getMenuBySearch);
 //router.route('/:name').get(menuController.getMenuItemByName);
 //router.route('/top-3-dishes').get(menuController.getTop3dishes);
 
