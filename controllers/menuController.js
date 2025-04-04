@@ -2,6 +2,22 @@ const catchAsync = require("../utils/catchAsync");
 const Menu = require("../models/menuModel");
 const handleFactory = require("../controllers/handlerFactory");
 const mongoose = require("mongoose");
+const embedDocuments = require("../utils/embed-documents");
+const AppError = require("../utils/appError");
+
+exports.getMenuBySearch = catchAsync(async (req, res, next) => {
+  const query = req.body.query;
+  console.log(query);
+  const results = await embedDocuments.searchMenu(query);
+
+  if (results.length === 0) {
+    next(
+      new AppError(403, "No matching menu items found. Try a different query?")
+    );
+  }
+
+  res.status(200).json({ status: "success", data: results });
+});
 
 exports.getMenuItemsByName = catchAsync(async (req, res, next) => {
   let restaurantId = "";

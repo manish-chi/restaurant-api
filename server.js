@@ -18,7 +18,7 @@ mongoose
     console.log(conn);
   })
   .catch((err) => {
-    console.log($`There was some error : ${err}`);
+    console.log(`There was some error : ${err}`);
   });
 
 let PORT = process.env.PORT || 8000;

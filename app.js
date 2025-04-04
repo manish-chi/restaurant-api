@@ -3,16 +3,16 @@ let dotenv = require("dotenv");
 let morgan = require("morgan");
 let globalErrorHandler = require("./controllers/errorController");
 let restaurantRouter = require("./routers/restaurantRouter");
-let userRouter = require('./routers/userRouter');
-let reservationRouter = require('./routers/reservationRouter');
-let cors = require('cors');
-let path = require('path');
-let paymentRouter = require('./routers/paymentRouter');
-let cardRouter = require('./routers/cardRouter');
-let menuRouter = require('./routers/menuRouter');
-let orderRouter = require('./routers/orderRouter');
-let authRouter = require('./routers/authRouter');
-
+let userRouter = require("./routers/userRouter");
+let reservationRouter = require("./routers/reservationRouter");
+let cors = require("cors");
+let path = require("path");
+let paymentRouter = require("./routers/paymentRouter");
+let cardRouter = require("./routers/cardRouter");
+let menuRouter = require("./routers/menuRouter");
+let orderRouter = require("./routers/orderRouter");
+let authRouter = require("./routers/authRouter");
+let navigationRouter = require("./routers/navigationRouter");
 
 dotenv.config({ path: "./config.env" });
 
@@ -22,11 +22,11 @@ console.log(__dirname);
 
 //Push again!
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, "build")));
 
 // // For any route, serve the React index.html file
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+app.get("/login", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
 if (process.env.NODE_ENV == "development") {
@@ -48,30 +48,35 @@ app.use(express.json());
 //   next();
 // });
 
-app.get('/', function(req, res, next) {
+app.get("/", function (req, res, next) {
   Task.find()
-    .then((tasks) => {      
-      const currentTasks = tasks.filter(task => !task.completed);
-      const completedTasks = tasks.filter(task => task.completed === true);
+    .then((tasks) => {
+      const currentTasks = tasks.filter((task) => !task.completed);
+      const completedTasks = tasks.filter((task) => task.completed === true);
 
-      console.log(`Total tasks: ${tasks.length}   Current tasks: ${currentTasks.length}    Completed tasks:  ${completedTasks.length}`)
-      res.render('index', { currentTasks: currentTasks, completedTasks: completedTasks });
+      console.log(
+        `Total tasks: ${tasks.length}   Current tasks: ${currentTasks.length}    Completed tasks:  ${completedTasks.length}`
+      );
+      res.render("index", {
+        currentTasks: currentTasks,
+        completedTasks: completedTasks,
+      });
     })
     .catch((err) => {
       console.log(err);
-      res.send('Sorry! Something went wrong.');
+      res.send("Sorry! Something went wrong.");
     });
 });
 
-app.use('/config',authRouter);
-app.use('/api/v1/users',userRouter);
+app.use("/config", authRouter);
+app.use("/api/v1/users", userRouter);
 app.use("/api/v1/restaurants", restaurantRouter);
-app.use('/api/v1/reservations',reservationRouter);
-app.use('/api/v1/payments',paymentRouter);
-app.use('/api/v1/cards',cardRouter);
-app.use('/api/v1/menu',menuRouter);
-app.use('/api/v1/orders',orderRouter);
-
+app.use("/api/v1/reservations", reservationRouter);
+app.use("/api/v1/payments", paymentRouter);
+app.use("/api/v1/cards", cardRouter);
+app.use("/api/v1/menu", menuRouter);
+app.use("/api/v1/orders", orderRouter);
+app.use("/api/v1/main-menu-options", navigationRouter);
 app.use(globalErrorHandler);
 
 module.exports = app;

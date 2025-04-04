@@ -1,7 +1,7 @@
 let mongoose = require("mongoose");
 let validator = require("validator");
 
-let restaurantSchema = mongoose.Schema(
+let restaurantSchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -49,14 +49,13 @@ let restaurantSchema = mongoose.Schema(
       address: String,
       description: String,
     },
-    photo: {
+    image: {
       type: String,
       validate: function (val) {
         return validator.isURL(val);
       },
     },
-  },
-  { strict: "throw" }
+  }
 );
 
 let Restaurant = mongoose.model("Restaurant", restaurantSchema);
