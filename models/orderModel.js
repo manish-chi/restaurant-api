@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
-const sendMail = require("../utils/mailer");
-const AppError = require("../utils/appError");
-const User = require("../models/userModel");
-const catchAsync = require("../utils/catchAsync");
+import mongoose from "mongoose";
+import sendMail from "../utils/mailer.js";
+import AppError from "../utils/appError.js";
+import User from "../models/userModel.js";
+import catchAsync from "../utils/catchAsync.js";
 
 let orderSchema = mongoose.Schema({
   restaurant: {
@@ -64,4 +64,4 @@ orderSchema.post("save", async function (doc) {
 
 let Order = mongoose.model("Order", orderSchema);
 
-module.exports = Order;
+export default Order;

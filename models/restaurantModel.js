@@ -1,5 +1,5 @@
-let mongoose = require("mongoose");
-let validator = require("validator");
+import mongoose from "mongoose";
+import validator from "validator";
 
 let restaurantSchema = new mongoose.Schema(
   {
@@ -60,4 +60,4 @@ let restaurantSchema = new mongoose.Schema(
 
 let Restaurant = mongoose.model("Restaurant", restaurantSchema);
 
-module.exports = Restaurant;
+export default Restaurant;

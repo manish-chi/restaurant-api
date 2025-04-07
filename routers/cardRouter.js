@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import cardController from '../controllers/cardController.js';
+import authController from '../controllers/authController.js';
+
 const Router = express.Router();
-const cardController = require('../controllers/cardController');
-const authController = require('../controllers/authController');
 
 
 Router.use(authController.protect);
@@ -9,4 +10,4 @@ Router.route('/datetime-card').get(cardController.getDateTimeCard);
 Router.route('/nearest-restaurants-card').get(cardController.getNearestRestaurantCard);
 Router.route('/menu-card').get(cardController.getMenuCard);
 
-module.exports = Router;
+export default Router;

@@ -1,11 +1,11 @@
-const handleFactory = require("../controllers/handlerFactory");
-const Order = require("../models/orderModel");
-const catchAsync = require("../utils/catchAsync");
-const mongoose = require('mongoose');
+import * as handleFactory from "../controllers/handlerFactory.js";
+import Order from "../models/orderModel.js";
+import catchAsync from "../utils/catchAsync.js";
+import mongoose from "mongoose";
 
-exports.addOrder = handleFactory.addOne(Order);
+export const addOrder = handleFactory.addOne(Order);
 
-exports.top3Orders = catchAsync(async (req, res, next) => {
+export const top3Orders = catchAsync(async (req, res, next) => {
 
   const objectId = new mongoose.Types.ObjectId(req.params.restaurantId);
 

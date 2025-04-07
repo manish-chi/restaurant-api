@@ -1,4 +1,4 @@
-let mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 let foodSchema = mongoose.Schema({
   name: {
@@ -55,4 +55,4 @@ foodSchema.pre(/^find/, function (next) {
 
 let food = new mongoose.model("foods", foodSchema);
 
-module.exports = food;
+export default food;

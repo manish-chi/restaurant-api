@@ -1,9 +1,9 @@
-const catchAsync = require("../utils/catchAsync");
-const AppError = require("../utils/appError");
-const fs = require("fs");
+import catchAsync from "../utils/catchAsync.js";
+import AppError from "../utils/appError.js";
+import fs from "fs";
 
 
-exports.getAll = (Model) => {
+export const getAll = (Model) => {
   return catchAsync(async (req, res, next) => {
     let results = await Model.find();
     return res.status(200).json({
@@ -15,7 +15,7 @@ exports.getAll = (Model) => {
   });
 };
 
-exports.getOne = (Model, popOptions) => {
+export const getOne = (Model, popOptions) => {
   return catchAsync(async (req, res, next) => {
     let query = Model.findById(req.params.id);
 
@@ -34,7 +34,7 @@ exports.getOne = (Model, popOptions) => {
   });
 };
 
-exports.addOne = (Model) => {
+export const addOne = (Model) => {
   return catchAsync(async (req, res, next) => {
     let result = await Model.create(req.body);
     return res.status(201).json({
@@ -46,7 +46,7 @@ exports.addOne = (Model) => {
   });
 };
 
-exports.getCard = (path) => {
+export const getCard = (path) => {
   return catchAsync(async (req, res, next) => {
     try {
       let data = fs.readFileSync(path, "utf8");
@@ -61,7 +61,7 @@ exports.getCard = (path) => {
   });
 };
 
-exports.updateOne = (Model) => {
+export const updateOne = (Model) => {
   return catchAsync(async (req, res, next) => {
     let obj = req.body;
 
@@ -96,7 +96,7 @@ exports.updateOne = (Model) => {
   });
 };
 
-exports.deleteOne = (Model) => {
+export const deleteOne = (Model) => {
   return catchAsync(async (req, res, next) => {
     let result = await Model.findByIdAndDelete(req.params.id);
 

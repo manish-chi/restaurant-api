@@ -1,8 +1,7 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
-const bcrypt = require("bcrypt");
-const crypto = require("crypto");
-const { passwordChangedAt } = require("../controllers/authController");
+import mongoose from "mongoose";
+import validator from "validator";
+import bcrypt from "bcrypt";
+import crypto from "crypto";
 
 let userSchema = new mongoose.Schema({
   name: {
@@ -79,4 +78,4 @@ userSchema.methods.comparePasswords = async function (
 
 let User = mongoose.model("DD-User", userSchema);
 
-module.exports = User;
+export default User;

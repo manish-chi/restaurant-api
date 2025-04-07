@@ -1,11 +1,11 @@
-const catchAsync = require("../utils/catchAsync");
-const Menu = require("../models/menuModel");
-const handleFactory = require("../controllers/handlerFactory");
-const mongoose = require("mongoose");
-const embedDocuments = require("../utils/embed-documents");
-const AppError = require("../utils/appError");
+import catchAsync from "../utils/catchAsync.js";
+import Menu from "../models/menuModel.js";
+import * as handleFactory from "../controllers/handlerFactory.js";
+import mongoose from "mongoose";
+import * as embedDocuments from "../utils/embed-documents.js";
+import AppError from "../utils/appError.js";
 
-exports.getMenuBySearch = catchAsync(async (req, res, next) => {
+export const getMenuBySearch = catchAsync(async (req, res, next) => {
   const query = req.body.query;
   console.log(query);
   const results = await embedDocuments.searchMenu(query);
@@ -19,7 +19,7 @@ exports.getMenuBySearch = catchAsync(async (req, res, next) => {
   res.status(200).json({ status: "success", data: results });
 });
 
-exports.getMenuItemsByName = catchAsync(async (req, res, next) => {
+export const getMenuItemsByName = catchAsync(async (req, res, next) => {
   let restaurantId = "";
 
   if (req.params.restaurantId) {
@@ -51,4 +51,4 @@ exports.getMenuItemsByName = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.addDish = handleFactory.addOne(Menu);
+export const addDish = handleFactory.addOne(Menu);

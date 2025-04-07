@@ -1,13 +1,13 @@
-let handlerFactory = require("../controllers/handlerFactory");
-let Restaurant = require("../models/restaurantModel");
-let catchAsync = require("../utils/catchAsync");
-let AppError = require("../utils/appError");
-let Menu = require("../models/menuModel");
-let sendMail = require("../utils/mailer");
-const mongoose = require("mongoose");
-let fs = require("fs");
+import * as handlerFactory from "../controllers/handlerFactory.js";
+import Restaurant from "../models/restaurantModel.js";
+import catchAsync from "../utils/catchAsync.js";
+import AppError from "../utils/appError.js";
+import Menu from "../models/menuModel.js";
+import sendMail from "../utils/mailer.js";
+import mongoose from "mongoose";
+import fs from "fs";
 
-exports.verifyRestaurant = catchAsync(async(req,res,next) => {
+export const verifyRestaurant = catchAsync(async(req,res,next) => {
   let { restaurant } = { ...req.body };
 
   const retrivedRestaurant = await Restaurant.findById(restaurant);
@@ -19,17 +19,17 @@ exports.verifyRestaurant = catchAsync(async(req,res,next) => {
  
 });
 
-exports.getAllRestaurants = handlerFactory.getAll(Restaurant);
+export const getAllRestaurants = handlerFactory.getAll(Restaurant);
 
-exports.getRestaurant = handlerFactory.getOne(Restaurant);
+export const getRestaurant = handlerFactory.getOne(Restaurant);
 
-exports.addRestaurant = handlerFactory.addOne(Restaurant);
+export const addRestaurant = handlerFactory.addOne(Restaurant);
 
-exports.updateRestaurant = handlerFactory.updateOne(Restaurant);
+export const updateRestaurant = handlerFactory.updateOne(Restaurant);
 
-exports.deleteRestaurant = handlerFactory.deleteOne(Restaurant);
+export const deleteRestaurant = handlerFactory.deleteOne(Restaurant);
 
-exports.getNearestRestaurants = catchAsync(async (req, res, next) => {
+export const getNearestRestaurants = catchAsync(async (req, res, next) => {
   let user = { lat: "17.51547032483256", longi: "78.49404345991756" };
 
   // Restaurant.createIndex( { "location.cordinates": "2dsphere" } );
@@ -57,7 +57,7 @@ exports.getNearestRestaurants = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getRestaurantUsingMenuItemNames = catchAsync(async (req, res, next) => {
+export const getRestaurantUsingMenuItemNames = catchAsync(async (req, res, next) => {
   let items = JSON.parse(req.query.menuItemNames);
 
   let restaurantsData = await Promise.all(

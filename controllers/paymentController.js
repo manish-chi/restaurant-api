@@ -1,9 +1,9 @@
-const catchAsync = require('../utils/catchAsync');
-const appError = require('../utils/appError');
-let Stripe = require('stripe');
+import catchAsync from '../utils/catchAsync.js';
+import AppError from '../utils/appError.js';
+import Stripe from 'stripe';
 
 
-exports.createSessionUrl = catchAsync(async(req,res,next) => {
+export const createSessionUrl = catchAsync(async(req,res,next) => {
    var items = req.body;
    console.log(items);
 

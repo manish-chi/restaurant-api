@@ -1,24 +1,28 @@
-let express = require("express");
-let dotenv = require("dotenv");
-let morgan = require("morgan");
-let globalErrorHandler = require("./controllers/errorController");
-let restaurantRouter = require("./routers/restaurantRouter");
-let userRouter = require("./routers/userRouter");
-let reservationRouter = require("./routers/reservationRouter");
-let cors = require("cors");
-let path = require("path");
-let paymentRouter = require("./routers/paymentRouter");
-let cardRouter = require("./routers/cardRouter");
-let menuRouter = require("./routers/menuRouter");
-let orderRouter = require("./routers/orderRouter");
-let authRouter = require("./routers/authRouter");
-let navigationRouter = require("./routers/navigationRouter");
+import express from "express";
+import dotenv from "dotenv";
+import morgan from "morgan";
+import globalErrorHandler from "./controllers/errorController.js";
+import restaurantRouter from "./routers/restaurantRouter.js";
+import userRouter from "./routers/userRouter.js";
+import reservationRouter from "./routers/reservationRouter.js";
+import cors from "cors";
+import path from "path";
+import { fileURLToPath } from 'url';
+import paymentRouter from "./routers/paymentRouter.js";
+import cardRouter from "./routers/cardRouter.js";
+import menuRouter from "./routers/menuRouter.js";
+import orderRouter from "./routers/orderRouter.js";
+import authRouter from "./routers/authRouter.js";
+import navigationRouter from "./routers/navigationRouter.js";
+import responseRouter from "./routers/responseRouter.js";
+import * as responseController from './controllers/responseController.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: "./config.env" });
 
 let app = express();
-
-console.log(__dirname);
 
 //Push again!
 // Serve static files from the React app
@@ -77,6 +81,7 @@ app.use("/api/v1/cards", cardRouter);
 app.use("/api/v1/menu", menuRouter);
 app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/main-menu-options", navigationRouter);
+app.use('/api/v1/response',responseRouter);
 app.use(globalErrorHandler);
 
-module.exports = app;
+export default app;

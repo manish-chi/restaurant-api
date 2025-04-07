@@ -1,7 +1,7 @@
-const handlerFactory = require("../controllers/handlerFactory");
-const Reservation = require("../models/reservationModel");
+import * as handlerFactory from "../controllers/handlerFactory.js";
+import Reservation from "../models/reservationModel.js";
 
-exports.MakeReservation = handlerFactory.addOne(Reservation);
+export const MakeReservation = handlerFactory.addOne(Reservation);
 
-exports.GetReservation = handlerFactory.getOne(Reservation);
+export const GetReservation = handlerFactory.getOne(Reservation);
 

@@ -1,9 +1,9 @@
-const catchAsync = require("../utils/catchAsync");
-const AppError = require("../utils/appError");
-const User = require("../models/userModel");
-const JWT = require("jsonwebtoken");
-const crypto = require("crypto");
-const sendMail = require("../utils/mailer");
+import catchAsync from "../utils/catchAsync.js";
+import AppError from "../utils/appError.js";
+import User from "../models/userModel.js";
+import JWT from "jsonwebtoken";
+import crypto from "crypto";
+import sendMail from "../utils/mailer.js";
 
 function sendAccessToken(user, res) {
   let userId = user._id;
@@ -35,7 +35,7 @@ function sendAccessToken(user, res) {
   });
 }
 
-exports.signup = catchAsync(async (req, res, next) => {
+const signup = catchAsync(async (req, res, next) => {
   let user = await User.create({
     name: req.body.name,
     email: req.body.email,
@@ -47,7 +47,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   sendAccessToken(user, res);
 });
 
-exports.login = catchAsync(async (req, res, next) => {
+const login = catchAsync(async (req, res, next) => {
   let { email, password } = req.body;
 
   if (!email || !password)
@@ -66,7 +66,7 @@ exports.login = catchAsync(async (req, res, next) => {
   sendAccessToken(user, res);
 });
 
-exports.updatePassword = catchAsync(async (req, res, next) => {
+const updatePassword = catchAsync(async (req, res, next) => {
   //1. Get the current User
   const user = await User.findOne({ email: req.body.email });
 
@@ -99,7 +99,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.forgotPassword = catchAsync(async (req, res, next) => {
+const forgotPassword = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user)
@@ -130,7 +130,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   }
 });
 
-exports.resetPassword = catchAsync(async (req, res, next) => {
+const resetPassword = catchAsync(async (req, res, next) => {
   const resetToken = req.params.token;
 
   const passwordResetToken = crypto
@@ -163,7 +163,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.protect = catchAsync(async (req, res, next) => {
+const protect = catchAsync(async (req, res, next) => {
   if (!req.headers.authorization) {
     throw new AppError(400, "Authorization headers are not provided.");
   }
@@ -188,7 +188,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.generateDirectLineToken = catchAsync(async (req, res, next) => {
+const generateDirectLineToken = catchAsync(async (req, res, next) => {
   const userId = "dl_" + req.params.id;
 
   if (!userId) throw new AppError(404, "Sorry, User with ID not found!");
@@ -221,3 +221,13 @@ exports.generateDirectLineToken = catchAsync(async (req, res, next) => {
     throw new AppError(err.statusCode, err.message);
   }
 });
+
+export default {
+  generateDirectLineToken,
+  protect,
+  signup,
+  login,
+  resetPassword,
+  forgotPassword,
+  updatePassword,
+};

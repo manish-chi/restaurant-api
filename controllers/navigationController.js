@@ -1,6 +1,6 @@
-const mainNavigationModel = require("../models/mainNavigationModel");
+import mainNavigationModel from "../models/mainNavigationModel.js";
 
-exports.getMainNavigationMenus = async (req, res, next) => {
+export const getMainNavigationMenus = async (req, res, next) => {
   let mainOptions = await mainNavigationModel.find();
   res.status(200).json({
     status: "success",

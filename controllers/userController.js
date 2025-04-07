@@ -1,9 +1,9 @@
-const handlerFactory = require("../controllers/handlerFactory");
-const User = require("../models/userModel");
-const catchAsync = require('../utils/catchAsync');
-const AppError = require('../utils/appError');
+import * as handlerFactory from "../controllers/handlerFactory.js";
+import User from "../models/userModel.js";
+import catchAsync from "../utils/catchAsync.js";
+import AppError from "../utils/appError.js";
 
-exports.verifyUser = catchAsync(async (req, res, next) => {
+export const verifyUser = catchAsync(async (req, res, next) => {
   let { user } = { ...req.body };
 
   const retrivedUser = await User.findById(user);
@@ -13,6 +13,6 @@ exports.verifyUser = catchAsync(async (req, res, next) => {
   next();
 });
 
-exports.deleteOne = handlerFactory.deleteOne(User);
+export const deleteOne = handlerFactory.deleteOne(User);
 
-exports.getOne = handlerFactory.getOne(User);
+export const getOne = handlerFactory.getOne(User);

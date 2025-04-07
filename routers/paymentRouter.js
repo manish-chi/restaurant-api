@@ -1,10 +1,11 @@
-const express = require('express');
+import express from 'express';
+import * as paymentController from '../controllers/paymentController.js';
+import authController from '../controllers/authController.js';
+
 const router = express.Router();
-const paymentController = require('../controllers/paymentController');
-const authController = require('../controllers/authController');
 
 router.use(authController.protect);
 
 router.route('/create-cart-session').post(paymentController.createSessionUrl);
 
-module.exports = router;
+export default router;

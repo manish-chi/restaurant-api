@@ -1,8 +1,9 @@
-const express = require("express");
+import express from "express";
+import * as restaurantController from "../controllers/restaurantController.js";
+import authController from "../controllers/authController.js";
+import menuRouter from "../routers/menuRouter.js";
+
 const router = express.Router();
-const restaurantController = require("../controllers/restaurantController");
-const authController = require('../controllers/authController');
-const menuRouter = require('../routers/menuRouter');
 
 router.use(authController.protect);
 
@@ -24,4 +25,4 @@ router
 
 router.use('/:restaurantId/menu',menuRouter);
 
-module.exports = router;
+export default router;

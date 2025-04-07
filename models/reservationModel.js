@@ -1,6 +1,6 @@
-let mongoose = require("mongoose");
-const sendMail = require("../utils/mailer");
-const AppError = require("../utils/appError");
+import mongoose from "mongoose";
+import sendMail from "../utils/mailer.js";
+import AppError from "../utils/appError.js";
 
 let reservationSchema = mongoose.Schema({
   datetime: {
@@ -62,4 +62,4 @@ reservationSchema.post("save", async function (doc) {
 
 let Reservation = new mongoose.model("Reservation", reservationSchema);
 
-module.exports = Reservation;
+export default Reservation;

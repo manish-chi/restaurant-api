@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const foodModel = require("../models/menuModel");
-const restaurantModel = require("../models/restaurantModel");
-const axios = require("axios");
-const { Pinecone } = require("@pinecone-database/pinecone");
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import foodModel from "../models/menuModel.js";
+import restaurantModel from "../models/restaurantModel.js";
+import axios from "axios";
+import { Pinecone } from "@pinecone-database/pinecone";
 
 dotenv.config({ path: "./config.env" });
 
@@ -26,13 +26,13 @@ mongoose.connect(databaseConnection).then((conn) => {
   console.log("Database Connected Successfully");
 });
 
-exports.searchMenu = async (query) => {
+export const searchMenu = async (query) => {
   const embedding = await embedText(query);
 
   const results = await index.query({
-      includeMetadata: true,
-      topK: 3,
-      vector: embedding
+    includeMetadata: true,
+    topK: 3,
+    vector: embedding,
   });
 
   const items = results.matches.map((match) => ({
@@ -66,7 +66,7 @@ async function embedText(text) {
   return res.data.data[0].embedding;
 }
 
-embed_docs = async () => {
+export const embed_docs = async () => {
   const items = await foodModel.find();
 
   const vectors = await Promise.all(
@@ -81,7 +81,7 @@ embed_docs = async () => {
           description: item.description,
           price_in_INR: item.price_in_INR,
           image: item.image,
-          restaurants: item.restaurants,
+          restaurants: item.restaurants.map((id) => id.toString()),
           type: item.type,
           category: item.category,
         },

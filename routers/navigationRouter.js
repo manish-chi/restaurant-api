@@ -1,7 +1,7 @@
-const express = require("express");
-const router = express.Router();
-const navigationController = require("../controllers/navigationController");
+import express from "express";
+import * as navigationController from "../controllers/navigationController.js";
 
+const router = express.Router();
 router.route("/").get(navigationController.getMainNavigationMenus);
 
-module.exports = router;
+export default router;
