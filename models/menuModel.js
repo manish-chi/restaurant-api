@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Formatter from '../utils/formatter.js';
 
 let foodSchema = mongoose.Schema({
   name: {
@@ -52,6 +53,7 @@ foodSchema.pre(/^find/, function (next) {
   
   next();
 });
+
 
 let food = new mongoose.model("foods", foodSchema);
 

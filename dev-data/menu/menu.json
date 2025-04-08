@@ -383,5 +383,81 @@
     "restaurants": ["66af3fdbb278586bf2754124", "66af3fdbb278586bf2754125"],
     "description": "Vegetable balls in a spicy, tangy sauce.",
     "price_in_INR": 240
+  },
+  {
+    "name": "Vegetable Manchurian",
+    "category": "Starters",
+    "type": "veg",
+    "src" : "/images/food-images/veg/vegetable_manchuria.jpg",
+    "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/vegitableManchuria.jpg",
+    "averageRating": 4.6,
+    "restaurants": ["66af3fdbb278586bf2754124", "66af3fdbb278586bf2754125"],
+    "description": "Vegetable balls in a spicy, tangy sauce.",
+    "price_in_INR": 240
+  },
+  {
+    "name": "Vegetable Manchurian",
+    "category": "Starters",
+    "type": "veg",
+    "src" : "/images/food-images/veg/vegetable_manchuria.jpg",
+    "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/vegitableManchuria.jpg",
+    "averageRating": 4.6,
+    "restaurants": ["66af3fdbb278586bf2754124", "66af3fdbb278586bf2754125"],
+    "description": "Vegetable balls in a spicy, tangy sauce.",
+    "price_in_INR": 240
+  },
+  {
+    "name": "Vegetable Manchurian",
+    "category": "Starters",
+    "type": "veg",
+    "src" : "/images/food-images/veg/vegetable_manchuria.jpg",
+    "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/vegitableManchuria.jpg",
+    "averageRating": 4.6,
+    "restaurants": ["66af3fdbb278586bf2754124", "66af3fdbb278586bf2754125"],
+    "description": "Vegetable balls in a spicy, tangy sauce.",
+    "price_in_INR": 240
+  },
+  {
+    "name": "Vegetable Manchurian",
+    "category": "Starters",
+    "type": "veg",
+    "src" : "/images/food-images/veg/vegetable_manchuria.jpg",
+    "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/vegitableManchuria.jpg",
+    "averageRating": 4.6,
+    "restaurants": ["66af3fdbb278586bf2754124", "66af3fdbb278586bf2754125"],
+    "description": "Vegetable balls in a spicy, tangy sauce.",
+    "price_in_INR": 240
+  },{
+    "name": "Vegetable Manchurian",
+    "category": "Starters",
+    "type": "veg",
+    "src" : "/images/food-images/veg/vegetable_manchuria.jpg",
+    "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/vegitableManchuria.jpg",
+    "averageRating": 4.6,
+    "restaurants": ["66af3fdbb278586bf2754124", "66af3fdbb278586bf2754125"],
+    "description": "Vegetable balls in a spicy, tangy sauce.",
+    "price_in_INR": 240
+  }
+  ,{
+    "name": "Vegetable Manchurian",
+    "category": "Starters",
+    "type": "veg",
+    "src" : "/images/food-images/veg/vegetable_manchuria.jpg",
+    "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/vegitableManchuria.jpg",
+    "averageRating": 4.6,
+    "restaurants": ["66af3fdbb278586bf2754124", "66af3fdbb278586bf2754125"],
+    "description": "Vegetable balls in a spicy, tangy sauce.",
+    "price_in_INR": 240
+  }
+  {
+    "name": "Vegetable Manchurian",
+    "category": "Starters",
+    "type": "veg",
+    "src" : "/images/food-images/veg/vegetable_manchuria.jpg",
+    "image": "https://dhabadeliciousstorage.blob.core.windows.net/menu-item-veg/vegitableManchuria.jpg",
+    "averageRating": 4.6,
+    "restaurants": ["66af3fdbb278586bf2754124", "66af3fdbb278586bf2754125"],
+    "description": "Vegetable balls in a spicy, tangy sauce.",
+    "price_in_INR": 240
   }
 ]

@@ -7,7 +7,7 @@ import userRouter from "./routers/userRouter.js";
 import reservationRouter from "./routers/reservationRouter.js";
 import cors from "cors";
 import path from "path";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 import paymentRouter from "./routers/paymentRouter.js";
 import cardRouter from "./routers/cardRouter.js";
 import menuRouter from "./routers/menuRouter.js";
@@ -15,7 +15,8 @@ import orderRouter from "./routers/orderRouter.js";
 import authRouter from "./routers/authRouter.js";
 import navigationRouter from "./routers/navigationRouter.js";
 import responseRouter from "./routers/responseRouter.js";
-import * as responseController from './controllers/responseController.js';
+import * as responseController from "./controllers/responseController.js";
+import chatRouter from "./routers/chatRouter.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -81,7 +82,8 @@ app.use("/api/v1/cards", cardRouter);
 app.use("/api/v1/menu", menuRouter);
 app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/main-menu-options", navigationRouter);
-app.use('/api/v1/response',responseRouter);
+app.use("/api/v1/response", responseRouter);
+app.use("/api/v1/chat", chatRouter);
 app.use(globalErrorHandler);
 
 export default app;

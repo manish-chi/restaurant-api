@@ -6,10 +6,16 @@ const intentSchema = {
     properties: {
       intent: {
         type: "string",
-        enum: ["orderFood", "locate", "offers","reserveTable"],
+        enum: ["orderFood", "locate", "offers","reserveTable","AddItems","ViewCart","ProceedToPayment"],
+      },
+      foodItems:{
+        type : ["string"],
+      },
+      quantity:{
+        type : Number,
       },
     },
-    required: ["intent"],
+    required: ["intent","foodItems"],
   },
 };
 export default intentSchema;
