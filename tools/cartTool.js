@@ -1,13 +1,21 @@
 import { DynamicStructuredTool } from "@langchain/core/tools";
 import foodModel from "../models/menuModel.js";
-//import memory from "../utils/gptConnector.js";
 import z from "zod";
+import { Redis } from "@upstash/redis";
+import food from "../models/menuModel.js";
 
-export const addToCart = () => {
+export let redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
+
+let cartMemory = new Map();
+
+export function addToCart() {
   return new DynamicStructuredTool({
     name: "addToCart",
     description:
-      "adds multiple dishes to the cart after verifying they're available in the menu.",
+      "Adds one or more food items to the cart. Trigger this when the user says things like 'add', 'order', 'want', 'get', or 'have' followed by a dish name.",
     schema: z.object({
       items: z
         .array(
@@ -19,82 +27,100 @@ export const addToCart = () => {
         .describe("List of dishes and their quantities"),
     }),
     func: async ({ items }, config) => {
-      let messagesAdded = [];
-      let memory = config?.configurable?.memory;
+      try {
+        let messagesAdded = [];
+        const rawCart = await redis.get(`cart:${config.metadata.sessionId}`);
+        const cart = rawCart ? JSON.parse(rawCart) : [];
 
-      let cart = [];
+        for (let item of items) {
+          let foodItem = await foodModel
+            .findOne({
+              name: { $regex: new RegExp(`^${item.dish}$`, "i") },
+            })
+            .select("name price_in_INR")
+            .lean();
 
-      let currentCart = await memory?.getMemoryValue("cart");
+          if (!foodItem) {
+            messagesAdded.push(`${item.name} is not served here.`);
+            continue;
+          }
 
-      if (currentCart) cart = currentCart;
+          const itemPrice = foodItem.price_in_INR;
 
-      for (let item of items) {
-        let foodItem = await foodModel
-          .find({ name: { $regex: new RegExp(`^${item.dish}$`, "i") } })
-          .select("name price");
+          foodItem.price = item.quantity * itemPrice;
 
+          let existing = cart.find(
+            (c) => c.name.toLowerCase() === item.dish.toLowerCase()
+          );
 
-        if (foodItem.length == 0) {
-          messagesAdded.push(`${item.name} is not served here.`);
-          continue;
+          if (existing) {
+            existing.quanity += item.quanity;
+            cart.quanity = existing.quanity;
+          } else {
+            foodItem.quantity = item.quantity;
+            cart.push(foodItem);
+          }
         }
 
-        let existing = cart.find({ name: item.dish });
+        // Build summary
+        let summary = "🛒 Here's your updated cart:\n";
+        let totalItems = 0;
 
-        if (existing) {
-          existing.quanity += item.quanity;
-        } else {
-          cart.push(foodItem);
-        }
+        cart.forEach((item, idx) => {
+          summary += `${idx + 1}. ${item.quanity} x ${item.name} = ${
+            item.price
+          }🍽️\n`;
+          totalItems += 1;
+        });
 
-        foodItem.price = item.quantity * item.price;
-        return foodItem;
+        console.log(cart);
+
+        await redis.set(
+          `cart:${config.metadata.sessionId}`,
+          JSON.stringify(cart)
+        );
+
+        summary += `❌${messagesAdded.join(
+          ","
+        )}\n\n✅ Total items: ${totalItems}\n🧾 You can proceed to checkout or add more items?`;
+
+        return summary;
+      } catch (err) {
+        console.log(err);
       }
-
-      // Build summary
-      let summary = "🛒 Here's your updated cart:\n";
-      let totalItems = 0;
-
-      cart.forEach((item, idx) => {
-        summary += `${idx + 1}. ${item.quanity} x ${item.name} = ${
-          item.price
-        }🍽️\n`;
-        totalItems += items.quanity;
-      });
-
-      await config.configurable.setMemoryValue("cart", cart);
-
-      summary += `❌${messagesAdded.join(
-        ","
-      )}\n\n✅ Total items: ${totalItems}\n🧾 You can proceed to checkout or add more items?`;
-
-      return summary;
     },
   });
-};
+}
 
-export const showCart = (config) => {
+export function showCart() {
   return new DynamicStructuredTool({
     name: "showCart",
     description: "shows the cart to the user",
     schema: z.object({}),
-    func: async () => {
-      let cart = [];
-      console.log(await config?.configurable.getMemoryValue("cart"));
-      let currentCart = await config?.configurable.getMemoryValue("cart");
-      if (currentCart) cart = currentCart;
+    func: async (input, config) => {
+      try {
+        const rawCart = await redis.get(`cart:${config.metadata.sessionId}`);
+        let cart = [];
 
-      if (cart.length == 0) return `Oops! cart 🛒 seems empty! ❗`;
+        if (rawCart) {
+          cart = typeof rawCart === "string" ? JSON.parse(rawCart) : rawCart;
+        }
 
-      let totalCost = 0;
-      let summary = cart.map((item, idex) => {
-        totalCost += item.price * item.quanity;
-        return `${idex + 1}. ${item.name} x ${item.quanity} = ${item.price} * ${
-          item.quantity
-        }\n`;
-      });
+        if (cart.length == 0) return `Oops! cart 🛒 seems empty! ❗`;
 
-      return `${summary}\n 💰Total Amount = ₹${totalCost}`;
+        let totalCost = 0;
+        let summary = cart.map((item, idex) => {
+          totalCost = totalCost + item.price * item.quantity;
+          return `${idex + 1}. ${item.name} x ${
+            item.quantity
+          } = ${totalCost}\n`;
+          totalCost = 0;
+        });
+
+        return `${summary}\n 💰Total Amount = ₹${totalCost}`;
+      } catch (err) {
+        console.log(err);
+      }
     },
   });
-};
+}

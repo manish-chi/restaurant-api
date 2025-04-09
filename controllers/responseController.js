@@ -2,7 +2,7 @@ import * as embedDocuments from "../utils/embed-documents.js";
 import catchAsync from "../utils/catchAsync.js"; // Make sure the filename matches ("catchAsync", not "catchASync")
 import Formatter from "../utils/formatter.js";
 import { PromptTemplate } from "@langchain/core/prompts";
-// import GPTConnector from "../utils/gptConnector.js";
+import { createModel } from "../utils/gptConnector.js";
 import intentSchema from "../models/intentModel.js";
 import foodModel from "../models/menuModel.js";
 import json from "json";
@@ -32,8 +32,7 @@ export const getFoodResponseToUser = catchAsync(async (req, res, next) => {
     foodItems: foodItemsText,
   });
 
-  const response = await new GPTConnector()
-    .createGPTTurboConnector()
+  const response = await createModel()
     .invoke(prompt);
 
   return res.status(200).json({
@@ -43,7 +42,7 @@ export const getFoodResponseToUser = catchAsync(async (req, res, next) => {
 });
 
 export const getFreshWelcomeResponse = catchAsync(async (req, res, next) => {
-  const response = await new GPTConnector().createGPTTurboConnector().invoke([
+  const response = await createModel().invoke([
     {
       role: "system",
       content:
@@ -65,7 +64,7 @@ export const getFreshWelcomeResponse = catchAsync(async (req, res, next) => {
 export const getIntentResponse = catchAsync(async (req, res, next) => {
   const userMessage = req.body.query;
 
-  const response = await new GPTConnector().createGPTTurboConnector().invoke(
+  const response = await createModel().invoke(
     [
       {
         role: "system",
@@ -113,7 +112,7 @@ export const getIntentResponse = catchAsync(async (req, res, next) => {
 export const getDefaultResponse = catchAsync(async (req, res, next) => {
   const userMessage = req.body.query;
 
-  const response = await new GPTConnector().createGPTTurboConnector().invoke([
+  const response = await createModel().invoke([
     {
       role: "system",
       content: `You're a helpful restaurant assistant for Dhaba Delicious. 
@@ -134,7 +133,7 @@ If the user asks something off-topic, respond politely and guide them back to or
 export const getReEngageResponse = catchAsync(async (req, res, next) => {
   const userMessage = req.body.query;
 
-  const response = await new GPTConnector().createGPTTurboConnector().invoke([
+  const response = await createModel().invoke([
     {
       role: "system",
       content: `You're a helpful restaurant assistant for Dhaba Delicious. 
@@ -173,7 +172,7 @@ export const getPreOrderResponse = catchAsync(async (req, res, next) => {
 
   console.log(sortedList);
 
-  const response = await new GPTConnector().createGPTTurboConnector().invoke([
+  const response = await createModel().invoke([
     {
       role: "system",
       content: `You're a friendly assistant for a restaurant named Dhaba Delicious.
