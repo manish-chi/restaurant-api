@@ -209,8 +209,6 @@ const generateDirectLineToken = catchAsync(async (req, res, next) => {
       }
     );
 
-    console.log(response);
-
     if (response.ok) {
       const body = await response.json();
       res.json({

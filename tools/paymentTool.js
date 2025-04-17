@@ -56,10 +56,10 @@ export function paymentSuccess() {
 
         let foodItems = await Promise.all(
           cart.map(async (cartItem) => {
-            let food = await foodModel
-              .findOne({ name: {$regex : new RegExp(`^${cartItem.name}$`, "i")} })
-              .select("_id");
-            return food;
+            let food = await foodModel.findOne({
+              name: { $regex: new RegExp(`^${cartItem.name}$`, "i") },
+            });
+            return food._doc;
           })
         );
 
@@ -67,17 +67,16 @@ export function paymentSuccess() {
         let restaurantIds = new Set();
 
         foodItems.forEach((item) => {
-          itemIds.add(item._id);
+          itemIds.push(item._id.toString());
           item.restaurants.forEach((rest) => {
-            restaurantIds.add(rest);
-          })
+            restaurantIds.add(rest._id.toString());
+          });
         });
 
-
         await orderModel.create({
-          restaurant: restaurantIds,
+          restaurant: Array.from(restaurantIds),
           customer: config.metadata.userId,
-          items: itemsIds,
+          items: itemIds,
         });
 
         const itemList = cart
