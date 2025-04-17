@@ -2,14 +2,33 @@ import { DynamicStructuredTool } from "@langchain/core/tools";
 import foodModel from "../models/menuModel.js";
 import z from "zod";
 import { Redis } from "@upstash/redis";
-import food from "../models/menuModel.js";
+import Formatter from "../utils/formatter.js";
+import { RequestsToolkit } from "langchain/agents";
 
 export let redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL,
   token: process.env.UPSTASH_REDIS_REST_TOKEN,
 });
 
-let cartMemory = new Map();
+const CartItemSchema = z.object({
+  name: z.string().describe("The name of the product in the cart."),
+  image: z
+    .string()
+    .optional()
+    .describe("The URL or path to the product's image."),
+  price: z.number().optional().describe("The price of the product."),
+});
+
+const AddToCartOutputSchema = z.object({
+  summary: z
+    .string()
+    .describe(
+      "A summary of the current cart, including the number of items and subtotal."
+    ),
+  cart_items: z
+    .array(CartItemSchema)
+    .describe("An array of items currently in the shopping cart."),
+});
 
 export function addToCart() {
   return new DynamicStructuredTool({
@@ -26,24 +45,32 @@ export function addToCart() {
         )
         .describe("List of dishes and their quantities"),
     }),
+    returnType: AddToCartOutputSchema,
     func: async ({ items }, config) => {
       try {
         let messagesAdded = [];
+        let cart = [];
+        let foundItems = [];
+
         const rawCart = await redis.get(`cart:${config.metadata.sessionId}`);
-        const cart = rawCart ? JSON.parse(rawCart) : [];
+        if (rawCart) {
+          cart = typeof rawCart == "string" ? JSON.parse(rawCart) : rawCart;
+        }
 
         for (let item of items) {
           let foodItem = await foodModel
             .findOne({
               name: { $regex: new RegExp(`^${item.dish}$`, "i") },
             })
-            .select("name price_in_INR")
+            .select("name price_in_INR image type")
             .lean();
 
           if (!foodItem) {
             messagesAdded.push(`${item.name} is not served here.`);
             continue;
           }
+
+          foundItems.push(foodItem);
 
           const itemPrice = foodItem.price_in_INR;
 
@@ -54,8 +81,8 @@ export function addToCart() {
           );
 
           if (existing) {
-            existing.quanity += item.quanity;
-            cart.quanity = existing.quanity;
+            existing.quanity += item.quantity;
+            cart.quantity = existing.quanity;
           } else {
             foodItem.quantity = item.quantity;
             cart.push(foodItem);
@@ -67,9 +94,9 @@ export function addToCart() {
         let totalItems = 0;
 
         cart.forEach((item, idx) => {
-          summary += `${idx + 1}. ${item.quanity} x ${item.name} = ${
-            item.price
-          }🍽️\n`;
+          summary += `${item.type} == "veg" ? "🟢" : "🔴" ${idx + 1}. ${
+            item.quantity
+          } x ${item.name} = ${item.price}🍽️\n`;
           totalItems += 1;
         });
 
@@ -84,7 +111,7 @@ export function addToCart() {
           ","
         )}\n\n✅ Total items: ${totalItems}\n🧾 You can proceed to checkout or add more items?`;
 
-        return summary;
+        return JSON.stringify({ summary: summary, items: foundItems });
       } catch (err) {
         console.log(err);
       }
@@ -97,7 +124,9 @@ export function showCart() {
     name: "showCart",
     description: "shows the cart to the user",
     schema: z.object({}),
-    func: async (input, config) => {
+    func: async ({}, config) => {
+      let failedMessages = [];
+
       try {
         const rawCart = await redis.get(`cart:${config.metadata.sessionId}`);
         let cart = [];
@@ -106,21 +135,88 @@ export function showCart() {
           cart = typeof rawCart === "string" ? JSON.parse(rawCart) : rawCart;
         }
 
-        if (cart.length == 0) return `Oops! cart 🛒 seems empty! ❗`;
-
-        let totalCost = 0;
-        let summary = cart.map((item, idex) => {
-          totalCost = totalCost + item.price * item.quantity;
-          return `${idex + 1}. ${item.name} x ${
-            item.quantity
-          } = ${totalCost}\n`;
-          totalCost = 0;
-        });
-
-        return `${summary}\n 💰Total Amount = ₹${totalCost}`;
+        let summary = await new Formatter().getCartSummary(
+          config,
+          redis,
+          failedMessages,
+          cart
+        );
+        return JSON.stringify({ summary: summary, items: cart });
       } catch (err) {
         console.log(err);
       }
+    },
+  });
+}
+
+export function removeFromCart() {
+  return new DynamicStructuredTool({
+    name: "removeFromCart",
+    description:
+      "extracts the food items and quantity and removes it from the cart",
+    schema: z.object({
+      items: z.array(
+        z.object({
+          dish: z.string().describe("Name of the food dish"),
+          quantity: z.number().min(1).describe("how many units of dish"),
+        })
+      ),
+    }),
+    func: async ({ items }, config) => {
+      let cart = [];
+
+      let rawCart = await redis.get(`cart:${config.metadata.sessionId}`);
+
+      if (rawCart) {
+        cart = typeof rawCart == "string" ? JSON.parse(rawCart) : rawCart;
+      }
+
+      console.log(items);
+
+      let failedMessages = [];
+
+      let updatedCart = [];
+
+      items.forEach((item) => {
+        let foundFoodItem = cart.find(
+          (x) => x.name.toLowerCase().trim() == item.dish.toLowerCase().trim()
+        );
+
+        if (!foundFoodItem)
+          failedMessages.push(`❌ ${item.dish} is not present in the cart!`);
+
+        let updatedQuantity = foundFoodItem.quantity - item.quantity;
+        if (updatedQuantity < 0)
+          failedMessages.push(
+            `❌ quantity provided is far higher than cart quantity for ${cartItem.name}`
+          );
+
+        foundFoodItem.price = foundFoodItem.price_in_INR * updatedQuantity;
+        foundFoodItem.quantity = updatedQuantity;
+        updatedCart.push(foundFoodItem);
+      });
+
+      cart = cart.filter((cartItem) => {
+        let updatedItem = updatedCart.find(
+          (x) =>
+            x.name.toLowerCase().trim() === cartItem.name.toLowerCase().trim()
+        );
+        if (updatedItem) {
+          return updatedItem.quantity != 0;
+        }
+        return cartItem;
+      });
+
+      await redis.set(
+        `cart:${config.metadata.sessionId}`,
+        JSON.stringify(cart)
+      );
+
+      return await new Formatter().getCartSummary(
+        config,
+        redis,
+        failedMessages
+      );
     },
   });
 }

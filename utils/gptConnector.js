@@ -1,7 +1,7 @@
 import { AzureChatOpenAI } from "@langchain/openai";
 import offers from "../tools/offerTool.js";
-import welcome from "../tools/welcome.js";
-import { addToCart, showCart } from "../tools/cartTool.js";
+import { welcome } from "../tools/welcome.js";
+import { addToCart, showCart, removeFromCart } from "../tools/cartTool.js";
 import { RunnableWithMessageHistory } from "@langchain/core/runnables";
 import { createToolCallingAgent } from "langchain/agents";
 import { AgentExecutor } from "langchain/agents";
@@ -9,15 +9,13 @@ import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { UpstashRedisChatMessageHistory } from "@langchain/community/stores/message/upstash_redis";
 import { BufferMemory } from "langchain/memory";
 import { Redis } from "@upstash/redis";
-import crypto from "crypto";
-import {RunnableSequence } from "@langchain/core/runnables";
+import { getMenuByCategory, getMenuItems } from "../tools/getMenuByCategory.js";
+
+import { generatePaymentLink, paymentSuccess } from "../tools/paymentTool.js";
+import { RunnableSequence } from "@langchain/core/runnables";
 
 let llm = null;
-let sessionId = null;
-
-function generateSessionId() {
-  return crypto.randomUUID();
-}
+let messageHistory = null;
 
 export async function createModel() {
   // LangChain Azure OpenAI client
@@ -34,14 +32,28 @@ export async function createModel() {
   return llm;
 }
 
-async function createGPTTurboConnector(sessionId) {
+export async function createGPTConnector(sessionId) {
   let llm = await createModel();
 
-  let tools = [offers(), welcome(), addToCart(), showCart()];
+  let tools = [
+    offers(),
+    //welcome(),
+    addToCart(),
+    showCart(),
+    removeFromCart(),
+    generatePaymentLink(),
+    paymentSuccess(),
+    getMenuByCategory(),
+    getMenuItems(),
+  ];
 
   const prompt = ChatPromptTemplate.fromMessages([
-    ["system", "You are a agent of Dabha Delicious Restaurant."],
+    [
+      "system",
+      "You are a restaurant assistant for Dhaba Delicious. ONLY use tools to retrieve real menu items instead of making them up.",
+    ],
     ["human", "{input}"],
+    ["placeholder", "{chat_history}"],
     ["placeholder", "{agent_scratchpad}"],
   ]);
 
@@ -59,9 +71,10 @@ async function createGPTTurboConnector(sessionId) {
   const agentExecutor = new AgentExecutor({
     agent,
     tools,
+    returnIntermediateSteps: true,
   });
 
-  const messageHistory = new UpstashRedisChatMessageHistory({
+  messageHistory = new UpstashRedisChatMessageHistory({
     sessionId,
     config: {
       url: process.env.UPSTASH_REDIS_REST_URL,
@@ -74,44 +87,28 @@ async function createGPTTurboConnector(sessionId) {
     inputMessagesKey: "input",
     historyMessagesKey: "chat_history", // Must match BufferMemory's key
     getMessageHistory: async () => messageHistory,
-    getMemoryValue: async (key, config) => {
-      const sessionId = config?.configurable?.sessionId;
-      const redis = new Redis({
-        url: process.env.UPSTASH_REDIS_REST_URL,
-        token: process.env.UPSTASH_REDIS_REST_TOKEN,
-      });
-      const value = await redis.get(`custom:${sessionId}:${key}`);
-      return value ? JSON.parse(value) : undefined;
-    },
-    setMemoryValue: async (key, value, config) => {
-      const sessionId = config?.configurable?.sessionId;
-      const redis = new Redis({
-        url: process.env.UPSTASH_REDIS_REST_URL,
-        token: process.env.UPSTASH_REDIS_REST_TOKEN,
-      });
-      await redis.set(`custom:${sessionId}:${key}`, JSON.stringify(value));
-    },
   });
 
   return agentExecutorWithMemory;
 }
 
-export async function callAgent(input) {
+export async function callAgent(input, userId = null, sessionId) {
   try {
     if (!llm) {
-      sessionId = generateSessionId();
-      llm = await createGPTTurboConnector(sessionId);
+      llm = await createGPTConnector(sessionId);
     }
 
-    console.log(sessionId);
+    await messageHistory.addUserMessage(input);
 
     const config = {
-      configurable: { sessionId: sessionId, cart: [] },
+      configurable: { sessionId: sessionId, userId: userId },
     };
 
     const result = await llm.invoke({ input }, config);
 
-    return result.output;
+    console.log(result);
+
+    return result;
   } catch (err) {
     console.log(err);
   }

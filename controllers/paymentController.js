@@ -14,7 +14,7 @@ export const createSessionUrl = catchAsync(async(req,res,next) => {
     mode : 'payment',
     line_items : items.map(item => { return{
         price_data : {
-            currency : 'usd',
+            currency : 'inr',
             product_data : {
                 name : item.Name,
             },

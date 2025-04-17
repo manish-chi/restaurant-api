@@ -199,14 +199,17 @@ const generateDirectLineToken = catchAsync(async (req, res, next) => {
       {
         method: "POST",
         headers: {
-          Authorization: "Bearer " + process.env.DIRECTLINE_SECRET,
+          Authorization: `Bearer ${process.env.DIRECTLINE_SECRET}`,
+          "Content-Type": "application/json",
         },
-        json: {
+        body: JSON.stringify({
           user: { id: userId, name: "manish chitre" },
-          trustedOrigins: ["http://localhost:8000"],
-        },
+          trustedOrigins: ["http://localhost:8000", "http://localhost:3000"],
+        }),
       }
     );
+
+    console.log(response);
 
     if (response.ok) {
       const body = await response.json();

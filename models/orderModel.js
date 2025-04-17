@@ -22,14 +22,14 @@ let orderSchema = mongoose.Schema({
   items: [
     {
       type: mongoose.Schema.ObjectId,
-      ref: "Menu",
+      ref: "foods",
       required: true,
     },
   ],
 });
 
 orderSchema.virtual("name", {
-  ref: "Menu",
+  ref: "foods",
   foreignField: "_id",
   localField: "items",
 });

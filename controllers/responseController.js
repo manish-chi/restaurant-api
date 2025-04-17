@@ -2,10 +2,9 @@ import * as embedDocuments from "../utils/embed-documents.js";
 import catchAsync from "../utils/catchAsync.js"; // Make sure the filename matches ("catchAsync", not "catchASync")
 import Formatter from "../utils/formatter.js";
 import { PromptTemplate } from "@langchain/core/prompts";
-import { createModel } from "../utils/gptConnector.js";
+import { createGPTConnector, createModel } from "../utils/gptConnector.js";
 import intentSchema from "../models/intentModel.js";
 import foodModel from "../models/menuModel.js";
-import json from "json";
 
 export const getFoodResponseToUser = catchAsync(async (req, res, next) => {
   const query = req.body.query;
@@ -32,8 +31,7 @@ export const getFoodResponseToUser = catchAsync(async (req, res, next) => {
     foodItems: foodItemsText,
   });
 
-  const response = await createModel()
-    .invoke(prompt);
+  const response = await createModel().invoke(prompt);
 
   return res.status(200).json({
     status: "success",
@@ -42,18 +40,27 @@ export const getFoodResponseToUser = catchAsync(async (req, res, next) => {
 });
 
 export const getFreshWelcomeResponse = catchAsync(async (req, res, next) => {
-  const response = await createModel().invoke([
+  const llm = await createModel();
+
+  const response = await llm.invoke(
+    [
+      {
+        role: "system",
+        content:
+          "You are a friendly restaurant bot for 'Dhaba Delicious' that helps users order food, book tables, and explore offers. Greet the user with a short, cheerful message (1–2 sentences, max 35 words). Use emojis. After greeting,tell user that you can help them in 3 navigation options: Ordering Food, Locate Us, and for checking Offers, clearly as buttons or bullet points and add emojis",
+      },
+      {
+        role: "user",
+        content:
+          "Generate a small welcome message for a new user visiting us, mentioning we offer a variety of menu options and provide navigation options.",
+      },
+    ],
     {
-      role: "system",
-      content:
-        "You are a friendly restaurant bot for 'Dhaba Delicious' that helps users order food, book tables, and explore offers. Greet the user with a short, cheerful message (1–2 sentences, max 35 words). Use emojis. After greeting, show 3 navigation options: Order Food, Locate Us, and Offers, clearly as buttons or bullet points and add emojis",
-    },
-    {
-      role: "user",
-      content:
-        "Generate a small welcome message for a new user visiting us, mentioning we offer a variety of menu options and provide navigation options.",
-    },
-  ]);
+      configurable: {
+        sessionId: req.sessionId,
+      },
+    }
+  );
 
   return res.status(200).json({
     status: "success",
@@ -78,9 +85,6 @@ export const getIntentResponse = catchAsync(async (req, res, next) => {
 
           [
 
-
-
-
   { intent : "orderFood" ,[{"item": "Butter Naan", "quantity": 1},{"item": "Paneer Butter Masala", "quantity": 2}] }
           ]
           
@@ -98,7 +102,9 @@ export const getIntentResponse = catchAsync(async (req, res, next) => {
     }
   );
 
-  const parsed = JSON.parse(response.content.replace(/```(?:json)?\n?/g, '').replace(/```$/, ''));
+  const parsed = JSON.parse(
+    response.content.replace(/```(?:json)?\n?/g, "").replace(/```$/, "")
+  );
 
   console.log(parsed[0]);
 
@@ -192,7 +198,4 @@ Use a casual tone and include emojis.`,
   });
 });
 
-
-export const getOfferResponse = catchAsync(async(req,res,next) => {
-
-});
+export const getOfferResponse = catchAsync(async (req, res, next) => {});

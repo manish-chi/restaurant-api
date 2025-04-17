@@ -5,7 +5,6 @@ import globalErrorHandler from "./controllers/errorController.js";
 import restaurantRouter from "./routers/restaurantRouter.js";
 import userRouter from "./routers/userRouter.js";
 import reservationRouter from "./routers/reservationRouter.js";
-import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 import paymentRouter from "./routers/paymentRouter.js";
@@ -15,8 +14,8 @@ import orderRouter from "./routers/orderRouter.js";
 import authRouter from "./routers/authRouter.js";
 import navigationRouter from "./routers/navigationRouter.js";
 import responseRouter from "./routers/responseRouter.js";
-import * as responseController from "./controllers/responseController.js";
 import chatRouter from "./routers/chatRouter.js";
+import crypto from "crypto";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -24,6 +23,8 @@ const __dirname = path.dirname(__filename);
 dotenv.config({ path: "./config.env" });
 
 let app = express();
+
+let sessionMapper = new Map();
 
 //Push again!
 // Serve static files from the React app
@@ -71,6 +72,19 @@ app.get("/", function (req, res, next) {
       console.log(err);
       res.send("Sorry! Something went wrong.");
     });
+});
+
+app.use((req, res, next) => {
+  if (!sessionMapper.has("sessionId")) {
+    let sessionId = crypto.randomUUID();
+    console.log(`Session ID is : ${sessionId}`);
+    sessionMapper.set("sessionId", sessionId);
+  }
+
+  req.sessionId = sessionMapper.get("sessionId");
+
+  console.log(`request session id : ${req.sessionId}`);
+  next();
 });
 
 app.use("/config", authRouter);
