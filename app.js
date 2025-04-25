@@ -16,6 +16,7 @@ import navigationRouter from "./routers/navigationRouter.js";
 import responseRouter from "./routers/responseRouter.js";
 import chatRouter from "./routers/chatRouter.js";
 import crypto from "crypto";
+import cors from "cors";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -40,6 +41,8 @@ if (process.env.NODE_ENV == "development") {
 }
 
 app.use(express.json());
+
+app.use(cors());
 
 // app.use((req, res, next) => {
 //   res.setHeader("Access-Control-Allow-Origin", "*");

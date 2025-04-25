@@ -10,6 +10,7 @@ import { UpstashRedisChatMessageHistory } from "@langchain/community/stores/mess
 import { BufferMemory } from "langchain/memory";
 import { Redis } from "@upstash/redis";
 import { getMenuByCategory, getMenuItems } from "../tools/getMenuByCategory.js";
+import { locateToolRestaurant } from "../tools/locationTool.js";
 
 import { generatePaymentLink, paymentSuccess } from "../tools/paymentTool.js";
 import { RunnableSequence } from "@langchain/core/runnables";
@@ -37,7 +38,7 @@ export async function createGPTConnector(sessionId) {
 
   let tools = [
     offers(),
-    //welcome(),
+    locateToolRestaurant(),
     addToCart(),
     showCart(),
     removeFromCart(),

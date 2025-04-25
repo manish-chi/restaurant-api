@@ -5,11 +5,13 @@ import User from "../models/userModel.js";
 import catchAsync from "../utils/catchAsync.js";
 
 let orderSchema = mongoose.Schema({
-  restaurant:[ {
-    type: mongoose.Schema.ObjectId,
-    ref: "Restaurant",
-    required: true,
-  }],
+  restaurant: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: "Restaurant",
+      required: true,
+    },
+  ],
   customer: {
     type: mongoose.Schema.ObjectId,
     ref: "DD-User",

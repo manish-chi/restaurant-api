@@ -52,7 +52,7 @@ export const getFreshWelcomeResponse = catchAsync(async (req, res, next) => {
       {
         role: "user",
         content:
-          "Generate a small welcome message for a new user visiting us, mentioning we offer a variety of menu options and provide navigation options.",
+          "Generate a small welcome message for a new user visiting us, mentioning we offer a variety of menu options and provide navigation options also you are just providing deliveries only in **Hyderabad**.",
       },
     ],
     {

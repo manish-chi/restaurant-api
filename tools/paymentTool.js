@@ -73,7 +73,7 @@ export function paymentSuccess() {
           });
         });
 
-        await orderModel.create({
+        let createdOrder = await orderModel.create({
           restaurant: Array.from(restaurantIds),
           customer: config.metadata.userId,
           items: itemIds,
@@ -85,7 +85,7 @@ export function paymentSuccess() {
           )
           .join("\n");
 
-        message += `\n🛒 Order Summary:\n${itemList}`;
+        message += `\n🛒 Order Summary with Order Id : ${createdOrder._id.ToString()}:\n${itemList}`;
 
         return message;
       } catch (err) {
