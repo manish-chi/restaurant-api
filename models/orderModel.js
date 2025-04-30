@@ -14,7 +14,7 @@ let orderSchema = mongoose.Schema({
   ],
   customer: {
     type: mongoose.Schema.ObjectId,
-    ref: "DD-User",
+    ref: "dd-customers",
     required: true,
   },
   createdAt: {
@@ -45,24 +45,24 @@ orderSchema.pre("save", function (next) {
   next();
 });
 
-orderSchema.post("save", async function (doc) {
-  var user = await User.findById({ _id: this.customer });
-  console.log(user);
-  console.log("==============");
-  console.log(doc);
+// orderSchema.post("save", async function (doc) {
+//   var user = await User.findById({ _id: this.customer });
+//   console.log(user);
+//   console.log("==============");
+//   console.log(doc);
 
-  let options = {
-    email: user.email,
-    subject: `Your Order(${doc._id}) has been confirmed @ ${this.restaurant.name}`,
-    message: `Hi ${user.name}👋, Your Order has been confirmed.  \nTime : ${this.createdAt}`,
-  };
+//   let options = {
+//     email: user.email,
+//     subject: `Your Order(${doc._id}) has been confirmed @ ${this.restaurant.name}`,
+//     message: `Hi ${user.name}👋, Your Order has been confirmed.  \nTime : ${this.createdAt}`,
+//   };
 
-  try {
-    sendMail(options);
-  } catch (err) {
-    throw new AppError(err.statusCode, err.message);
-  }
-});
+//   try {
+//     sendMail(options);
+//   } catch (err) {
+//     throw new AppError(err.statusCode, err.message);
+//   }
+// });
 
 let Order = mongoose.model("Order", orderSchema);
 

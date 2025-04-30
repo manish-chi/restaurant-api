@@ -2,15 +2,10 @@ import { callAgent } from "../utils/gptConnector.js";
 import catchAsync from "../utils/catchAsync.js";
 
 export const getChatResponse = catchAsync(async (req, res, next) => {
-  const input = req.body.query;
+  const input = req.query.query;
+  const sessionId = req.query?.sessionId ?? null;
 
-  const response = await callAgent(
-    input,
-    "66cc240c2b0664128bf63752",
-    req.sessionId
-  );
-
-  console.log(response);
+  const response = await callAgent(input,sessionId);
 
   return res.status(200).json({
     status: "success",

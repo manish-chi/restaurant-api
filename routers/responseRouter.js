@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.use(authController.protect);
 
-router.route("/food-response").get(responseController.getFoodResponseToUser);
 
 router
   .route("/get-welcome-response")

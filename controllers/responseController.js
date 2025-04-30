@@ -6,39 +6,6 @@ import { createGPTConnector, createModel } from "../utils/gptConnector.js";
 import intentSchema from "../models/intentModel.js";
 import foodModel from "../models/menuModel.js";
 
-export const getFoodResponseToUser = catchAsync(async (req, res, next) => {
-  const query = req.body.query;
-
-  const results = await embedDocuments.searchMenu(query);
-
-  const foodItemsText = new Formatter().foodFormatResponse(results);
-
-  // LangChain Prompt Template
-  const menuPrompt = new PromptTemplate({
-    template: `
-  You are a helpful restaurant assistant. The user asked: "{query}"
-  
-  Here are some relevant menu items from our database:
-  {foodItems}
-  
-  Give a friendly, clear answer. Mention prices and descriptions. If nothing fits, suggest something similar.
-  `,
-    inputVariables: ["query", "foodItems"],
-  });
-
-  const prompt = await menuPrompt.format({
-    query,
-    foodItems: foodItemsText,
-  });
-
-  const response = await createModel().invoke(prompt);
-
-  return res.status(200).json({
-    status: "success",
-    data: response,
-  });
-});
-
 export const getFreshWelcomeResponse = catchAsync(async (req, res, next) => {
   const llm = await createModel();
 
@@ -47,17 +14,16 @@ export const getFreshWelcomeResponse = catchAsync(async (req, res, next) => {
       {
         role: "system",
         content:
-          "You are a friendly restaurant bot for 'Dhaba Delicious' that helps users order food, book tables, and explore offers. Greet the user with a short, cheerful message (1–2 sentences, max 35 words). Use emojis. After greeting,tell user that you can help them in 3 navigation options: Ordering Food, Locate Us, and for checking Offers, clearly as buttons or bullet points and add emojis",
+          "You are a cheerful and helpful restaurant chatbot for 'Dhaba Delicious'. Greet users warmly with a short message (1–2 sentences, under 35 words) using friendly emojis 😊🍽️ Also, show Order Food, Locate us and Offer as options to choose from(add emoji's to all these options), Then, kindly ask for their name to get started.",
       },
       {
         role: "user",
-        content:
-          "Generate a small welcome message for a new user visiting us, mentioning we offer a variety of menu options and provide navigation options also you are just providing deliveries only in **Hyderabad**.",
+        content: "user will provide name",
       },
     ],
     {
       configurable: {
-        sessionId: req.sessionId,
+        sessionId: req.query.sessionId,
       },
     }
   );
@@ -197,5 +163,3 @@ Use a casual tone and include emojis.`,
     items: foodItems,
   });
 });
-
-export const getOfferResponse = catchAsync(async (req, res, next) => {});

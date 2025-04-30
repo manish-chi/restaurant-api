@@ -1,21 +1,19 @@
 import { AzureChatOpenAI } from "@langchain/openai";
 import offers from "../tools/offerTool.js";
-import { welcome } from "../tools/welcome.js";
 import { addToCart, showCart, removeFromCart } from "../tools/cartTool.js";
+import { userValidationTool } from "../tools/userValidationTool.js";
 import { RunnableWithMessageHistory } from "@langchain/core/runnables";
 import { createToolCallingAgent } from "langchain/agents";
 import { AgentExecutor } from "langchain/agents";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { UpstashRedisChatMessageHistory } from "@langchain/community/stores/message/upstash_redis";
-import { BufferMemory } from "langchain/memory";
-import { Redis } from "@upstash/redis";
 import { getMenuByCategory, getMenuItems } from "../tools/getMenuByCategory.js";
 import { locateToolRestaurant } from "../tools/locationTool.js";
-
 import { generatePaymentLink, paymentSuccess } from "../tools/paymentTool.js";
-import { RunnableSequence } from "@langchain/core/runnables";
+import crypto from "crypto";
 
 let llm = null;
+let sessionId = null;
 let messageHistory = null;
 
 export async function createModel() {
@@ -38,13 +36,14 @@ export async function createGPTConnector(sessionId) {
 
   let tools = [
     offers(),
+    userValidationTool(),
     locateToolRestaurant(),
     addToCart(),
     showCart(),
     removeFromCart(),
     generatePaymentLink(),
     paymentSuccess(),
-    getMenuByCategory(),
+    //getMenuByCategory(),
     getMenuItems(),
   ];
 
@@ -93,16 +92,18 @@ export async function createGPTConnector(sessionId) {
   return agentExecutorWithMemory;
 }
 
-export async function callAgent(input, userId = null, sessionId) {
+export async function callAgent(input, sessionIdFromBot) {
   try {
     if (!llm) {
+      sessionId = sessionIdFromBot ?? crypto.randomUUID();
+      console.log(sessionId);
       llm = await createGPTConnector(sessionId);
     }
 
     await messageHistory.addUserMessage(input);
 
     const config = {
-      configurable: { sessionId: sessionId, userId: userId },
+      configurable: { sessionId: sessionId },
     };
 
     const result = await llm.invoke({ input }, config);

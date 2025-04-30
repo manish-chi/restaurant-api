@@ -77,19 +77,6 @@ app.get("/", function (req, res, next) {
     });
 });
 
-app.use((req, res, next) => {
-  if (!sessionMapper.has("sessionId")) {
-    let sessionId = crypto.randomUUID();
-    console.log(`Session ID is : ${sessionId}`);
-    sessionMapper.set("sessionId", sessionId);
-  }
-
-  req.sessionId = sessionMapper.get("sessionId");
-
-  console.log(`request session id : ${req.sessionId}`);
-  next();
-});
-
 app.use("/config", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/restaurants", restaurantRouter);

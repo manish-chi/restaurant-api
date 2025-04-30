@@ -8,10 +8,20 @@ let userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  email: {
+  phoneNumber: {
+    type: Number,
+    required: true,
+  },
+  location: {
     type: String,
     required: true,
-    unique: true,
+  },
+  sessionId: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
     validate: [validator.isEmail, "Please provide a valid email address"],
   },
   photo: {

@@ -4,32 +4,31 @@ import { z } from "zod";
 import { createSessionUrl } from "../utils/paymentGateway.js";
 import orderModel from "../models/orderModel.js";
 import foodModel from "../models/menuModel.js";
-import food from "../models/menuModel.js";
-
-let redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN,
-});
+import CartManager from "../utils/cartManager.js";
+import Formatter from "../utils/formatter.js";
+import UserManager from "../utils/userManager.js";
+import OrderManager from "../utils/orderManager.js";
 
 export function generatePaymentLink() {
   return new DynamicStructuredTool({
     name: "generatePaymentLink",
     description:
-      "Generates a secure Stripe payment link for the user's order so they can complete the payment online.",
+      "Generates a secure Stripe payment link for the user's order and also shows user location google maps image - so they can complete the payment online(USE emojis).",
     schema: z.object({}),
     func: async ({}, config) => {
       try {
-        let cart = [];
-        console.log(config);
-        let rawCart = await redis.get(`cart:${config.metadata.sessionId}`);
-        if (rawCart) {
-          cart = typeof rawCart == "string" ? JSON.parse(rawCart) : rawCart;
-        }
+        let userManager = new UserManager();
 
-        if (cart.length == 0)
+        if (!(await userManager.checkIfUserIsVerified(config)))
+          return "Please provide your phone number 📱 to proceed further..";
+
+        let cartManager = new CartManager();
+        await cartManager.getCart(config);
+
+        if (cartManager.cart.length == 0)
           return `❌ 🛒 cart is currently empty. Please first add some items in cart and try again!`;
 
-        const paymentLink = await createSessionUrl(cart);
+        const paymentLink = await createSessionUrl(cartManager.cart);
         return `Ok please go ahead and click and pay using 💳 ${paymentLink}`;
       } catch (err) {
         console.log(err);
@@ -48,46 +47,33 @@ export function paymentSuccess() {
       try {
         let message = "✅ Payment successful! Thank you for your order.";
 
-        let cart = [];
-        let rawCart = await redis.get(`cart:${config.metadata.sessionId}`);
-        if (rawCart) {
-          cart = typeof rawCart == "string" ? JSON.parse(rawCart) : rawCart;
-        }
+        //check if user is verified
+        let userManager = new UserManager();
 
-        let foodItems = await Promise.all(
-          cart.map(async (cartItem) => {
-            let food = await foodModel.findOne({
-              name: { $regex: new RegExp(`^${cartItem.name}$`, "i") },
-            });
-            return food._doc;
-          })
+        if (!(await userManager.checkIfUserIsVerified(config)))
+          return "Please provide your phone number 📱 to proceed further..";
+
+        let cartManager = new CartManager();
+
+        await cartManager.getCart(config);
+
+        //check if cart has items and its not empty.
+        if (cartManager.cart.length == 0)
+          return `❌ you haven't added anything in cart. Please order something first so that I can assist you in payment.`;
+
+        let order = new OrderManager();
+
+        let user = await userManager.saveUserToDatabase(config, null);
+
+        let createdOrder = await order.createOrder(cartManager, user);
+
+        console.log(createdOrder._id);
+
+        return new Formatter().getOrderSummary(
+          cartManager,
+          createdOrder,
+          message
         );
-
-        let itemIds = [];
-        let restaurantIds = new Set();
-
-        foodItems.forEach((item) => {
-          itemIds.push(item._id.toString());
-          item.restaurants.forEach((rest) => {
-            restaurantIds.add(rest._id.toString());
-          });
-        });
-
-        let createdOrder = await orderModel.create({
-          restaurant: Array.from(restaurantIds),
-          customer: config.metadata.userId,
-          items: itemIds,
-        });
-
-        const itemList = cart
-          .map(
-            (item, index) => `  ${index + 1}. ${item.name} x ${item.quantity}`
-          )
-          .join("\n");
-
-        message += `\n🛒 Order Summary with Order Id : ${createdOrder._id.ToString()}:\n${itemList}`;
-
-        return message;
       } catch (err) {
         console.log(err);
       }

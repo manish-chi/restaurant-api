@@ -1,7 +1,7 @@
 import { DynamicStructuredTool } from "@langchain/core/tools";
 import z from "zod";
 import foodModel from "../models/menuModel.js";
-import { validateHeaderValue } from "node:http";
+
 
 export function getMenuByCategory() {
   return new DynamicStructuredTool({
@@ -60,25 +60,28 @@ export function getMenuItems() {
   return new DynamicStructuredTool({
     name: "getMenuItems",
     description:
-      "Fetch real dishes by name, category, or keyword to avoid hallucination",
+      "Fetch menu items based on category like 'tandoor', 'main course', 'beverages', 'biryani' or 'tiffins'. Also invoke if the user asks for menu-related queries or food types.",
     schema: z.object({
       value: z
         .string()
         .describe(
-          "identify if user is asking for category such as 'tandoor,main course,beverages,breakfast or asking randomly about the food items. Also always replace drinks with beverages  and also replace tiffins with breakfast!"
+          "identify if user is asking for category or type such as 'tandoor,main course,beverages,breakfast or biryani or asking randomly about the food items. Also always replace drinks with beverages  and also replace tiffins with breakfast! and also consider any biryani,rice or curries."
         ),
     }),
     func: async ({ value }, config) => {
       const keywords = value.toLowerCase().split(" ").filter(Boolean);
 
-      if (keywords.contains("breakfast"))
-        keywords.replace("breakfast", "tiffins");
+      const normalizedKeywords = keywords.map((word) => {
+        if(word == 'breakfast') return "tiffin";
+
+        return word;
+      })
 
       const query = {
         $or: [
-          { name: { $regex: keywords.join("|"), $options: "i" } },
-          { description: { $regex: keywords.join("|"), $options: "i" } },
-          { category: { $regex: keywords.join("|"), $options: "i" } },
+          { name: { $regex: normalizedKeywords.join("|"), $options: "i" } },
+          { description: { $regex: normalizedKeywords.join("|"), $options: "i" } },
+          { category: { $regex: normalizedKeywords.join("|"), $options: "i" } },
         ],
       };
 
