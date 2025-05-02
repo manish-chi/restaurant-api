@@ -61,4 +61,5 @@ jobs:
           app-name: 'DD-BackEnd-Dev'
           slot-name: 'Production'
           package: .
+          deployment-method : zipDeploy
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_51FDE9FC16AA41C6BA106CB8ED45E930 }}
