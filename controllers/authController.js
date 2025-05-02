@@ -203,7 +203,8 @@ const generateDirectLineToken = catchAsync(async (req, res, next) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          user: { id: userId, name: "manish chitre" }
+          user: { id: userId, name: "manish chitre" },
+          trustedOrigins: ["http://localhost:8000", "http://localhost:3000","https://purple-pebble-09b781300.6.azurestaticapps.net/"],
         }),
       }
     );
