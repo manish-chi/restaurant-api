@@ -93,10 +93,9 @@ export async function createGPTConnector(sessionId) {
 
 export async function callAgent(input, sessionIdFromBot) {
   try {
-    if (!llm) {
-      llm = await createGPTConnector(sessionIdFromBot);
-    }
-
+  
+    let llm = await createGPTConnector(sessionIdFromBot);
+    
     await messageHistory.addUserMessage(input);
 
     const config = {

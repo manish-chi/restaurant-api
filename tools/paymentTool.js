@@ -13,7 +13,7 @@ export function generatePaymentLink() {
   return new DynamicStructuredTool({
     name: "generatePaymentLink",
     description:
-      "Generates a secure Stripe payment link for the user's order and also shows user location google maps image - so they can complete the payment online(USE emojis).",
+      "Generates a secure Stripe payment link for the user's order before placing order, so they can complete the payment online(USE emojis). At this method the order is NOT confirmed yet!",
     schema: z.object({}),
     func: async ({}, config) => {
       try {

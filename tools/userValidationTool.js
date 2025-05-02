@@ -13,7 +13,7 @@ export function userValidationTool() {
   return new DynamicStructuredTool({
     name: "userValidationTool",
     description:
-      "Handles user verification by collecting a phone number, sending an OTP, and verifying it. After successful OTP verification, the tool Ask the user for their delivery address/location(USE emojis). This is the user's home/delivery location, not the restaurant's location. Use this to generate and send Google Maps image for delivery.",
+      "Handles user verification by collecting a phone number, sending an OTP, and verifying it. After successful OTP verification, the tool Ask the user for their delivery address/location(USE emojis). This is the user's home/delivery location, not the restaurant's location.",
     schema: z.object({
       phoneNumber: z
         .number()
@@ -98,7 +98,7 @@ export function userValidationTool() {
           JSON.stringify(user)
         );
 
-        return `Here's the map 📍: ${googleMapsUrl} as Image.`;
+        return `${googleMapsUrl}`;
       }
 
       return "generating payment link please wait..🕧";

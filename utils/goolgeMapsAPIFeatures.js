@@ -42,7 +42,7 @@ class GoogleMapsAPIFeatures {
       let lat = result.geometry.location.lat;
       let lng = result.geometry.location.lng;
 
-      return `https://maps.googleapis.com/maps/api/staticmap?size=600x400&zoom=16&maptype=roadmap&markers=size:mid|color:red|${lat},${lng}&key=${process.env.GOOGLE_MAPS_API_KEY}`;
+      return `https://maps.googleapis.com/maps/api/staticmap?size=600x400&zoom=15&maptype=roadmap&markers=size:mid|color:red|${lat},${lng}&key=${process.env.GOOGLE_MAPS_API_KEY}`;
     } catch (err) {
       console.error("Geocoding error:", err.message);
       return null;
