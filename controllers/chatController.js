@@ -7,6 +7,7 @@ export const getChatResponse = catchAsync(async (req, res, next) => {
 
   const response = await callAgent(input,sessionId);
 
+  
   return res.status(200).json({
     status: "success",
     data: response.output,
