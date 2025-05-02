@@ -13,7 +13,6 @@ import { generatePaymentLink, paymentSuccess } from "../tools/paymentTool.js";
 import crypto from "crypto";
 
 let llm = null;
-let sessionId = null;
 let messageHistory = null;
 
 export async function createModel() {
@@ -95,15 +94,13 @@ export async function createGPTConnector(sessionId) {
 export async function callAgent(input, sessionIdFromBot) {
   try {
     if (!llm) {
-      sessionId = sessionIdFromBot ?? crypto.randomUUID();
-      console.log(sessionId);
-      llm = await createGPTConnector(sessionId);
+      llm = await createGPTConnector(sessionIdFromBot);
     }
 
     await messageHistory.addUserMessage(input);
 
     const config = {
-      configurable: { sessionId: sessionId },
+      configurable: { sessionId: sessionIdFromBot },
     };
 
     const result = await llm.invoke({ input }, config);
