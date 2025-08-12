@@ -1,6 +1,6 @@
 import { DynamicStructuredTool } from "@langchain/core/tools";
 import { z } from "zod";
-import { createModel } from "../utils/gptConnector.js";
+import { createModel } from "../utils/aiModelsManager.js";
 
 export default function offers() {
   return new DynamicStructuredTool({
@@ -9,7 +9,7 @@ export default function offers() {
     schema: z.object({}),
 
     func: async () => {
-      const model = await createModel();
+      const model = createModel();
 
       const result = await model.invoke([
         {

@@ -7,7 +7,7 @@ export const createSessionUrl = catchAsync(async(req,res,next) => {
    var items = req.body;
    console.log(items);
 
-   stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
+   let stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY);
 
    let session = await stripe.checkout.sessions.create({
     payment_method_types : ['card'],

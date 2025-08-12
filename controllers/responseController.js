@@ -2,7 +2,7 @@ import * as embedDocuments from "../utils/embed-documents.js";
 import catchAsync from "../utils/catchAsync.js"; // Make sure the filename matches ("catchAsync", not "catchASync")
 import Formatter from "../utils/formatter.js";
 import { PromptTemplate } from "@langchain/core/prompts";
-import { createGPTConnector, createModel } from "../utils/gptConnector.js";
+import {createModel } from "../utils/aiModelsManager.js";
 import intentSchema from "../models/intentModel.js";
 import foodModel from "../models/menuModel.js";
 

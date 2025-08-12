@@ -51,7 +51,7 @@ export const searchMenu = async (query) => {
 
 async function embedText(text) {
   const res = await axios.post(
-    `${process.env.AZURE_OPENAI_ENDPOINT}/openai/deployments/${process.env.AZURE_OPENAI_DEPLOYMENT}/embeddings?api-version=2023-05-15`,
+    `${process.env.AZURE_OPENAI_ENDPOINT}/openai/deployments/${process.env.AZURE_OPENAI_EMBEDDING_DEPLOYMENT_NAME}/embeddings?api-version=${process.env.AZURE_OPENAI_VERSION}`,
     {
       input: text,
     },

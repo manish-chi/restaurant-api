@@ -10,25 +10,11 @@ import { UpstashRedisChatMessageHistory } from "@langchain/community/stores/mess
 import { getMenuByCategory, getMenuItems } from "../tools/getMenuByCategory.js";
 import { locateToolRestaurant } from "../tools/locationTool.js";
 import { generatePaymentLink, paymentSuccess } from "../tools/paymentTool.js";
-import crypto from "crypto";
+import {createModel} from './aiModelsManager.js';
 
 let llm = null;
 let messageHistory = null;
 
-export async function createModel() {
-  // LangChain Azure OpenAI client
-  const llm = new AzureChatOpenAI({
-    temperature: 1,
-    azureOpenAIApiVersion: process.env.AZURE_OPENAI_VERSION,
-    azureOpenAIApiKey: process.env.AZURE_OPENAI_RESPONSE_API_KEY,
-    azureEndpoint: process.env.AZURE_OPENAI_CHATCOMPLETION_ENDPOINT,
-    azureOpenAIApiInstanceName: process.env.AZURE_OPENAI_RESPONSE_INSTANCE_NAME,
-    azureOpenAIApiDeploymentName:
-      process.env.AZURE_OPENAI_RESPONSE_DEPLOYMENT_NAME, // e.g. "gpt-35-turbo"
-  });
-
-  return llm;
-}
 
 export async function createGPTConnector(sessionId) {
   let llm = await createModel();
@@ -56,10 +42,6 @@ export async function createGPTConnector(sessionId) {
     ["placeholder", "{agent_scratchpad}"],
   ]);
 
-  console.log(
-    "🔧 Loaded tools:",
-    tools.map((t) => t.name)
-  );
 
   const agent = createToolCallingAgent({
     llm,
@@ -93,9 +75,8 @@ export async function createGPTConnector(sessionId) {
 
 export async function callAgent(input, sessionIdFromBot) {
   try {
-  
     let llm = await createGPTConnector(sessionIdFromBot);
-    
+
     await messageHistory.addUserMessage(input);
 
     const config = {

@@ -67,7 +67,7 @@ class Formatter {
       .map((item, index) => `  ${index + 1}. ${item.name} x ${item.quantity}`)
       .join("\n");
 
-    message += `\n🛒 Order Summary with Order Id : ${createdOrder._id.ToString()}:\n${itemList}`;
+    message += `\n🛒 Order Summary with Order Id : ${createdOrder._id.toString()}:\n${itemList}`;
   }
 }
 

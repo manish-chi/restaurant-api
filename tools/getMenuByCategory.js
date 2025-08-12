@@ -1,7 +1,7 @@
 import { DynamicStructuredTool } from "@langchain/core/tools";
 import z from "zod";
 import foodModel from "../models/menuModel.js";
-
+import PineconeManager  from "../utils/pineconeManager.js";
 
 export function getMenuByCategory() {
   return new DynamicStructuredTool({
@@ -65,7 +65,7 @@ export function getMenuItems() {
       value: z
         .string()
         .describe(
-          "identify if user is asking for category or type such as 'tandoor,main course,beverages,breakfast or biryani or asking randomly about the food items. Also always replace drinks with beverages  and also replace tiffins with breakfast! and also consider any biryani,rice or curries."
+          "identify if user is asking for category or type such as 'tandoor,main course,beverages,breakfast or biryani or asking randomly about the food items. Also always replace drinks with beverages and also replace tiffins with breakfast! and also consider any biryani,rice or curries."
         ),
     }),
     func: async ({ value }, config) => {
@@ -75,7 +75,7 @@ export function getMenuItems() {
         if(word == 'breakfast') return "tiffin";
 
         return word;
-      })
+      });
 
       const query = {
         $or: [
@@ -85,9 +85,16 @@ export function getMenuItems() {
         ],
       };
 
+      
       const items = await foodModel
         .find(query)
         .select("name price_in_INR description");
+
+      // let pineConeManager = new PineconeManager();
+
+      // const items = await pineConeManager.queryIndex(value);
+
+      // console.log(items);
 
       if (!items.length)
         return "Sorry, I couldn't find any items matching that.";

@@ -37,8 +37,6 @@ class GoogleMapsAPIFeatures {
         (component) => component.long_name.toLowerCase() === "hyderabad" || component.long_name.toLowerCase() === "secunderabad"
       );
 
-      console.log(`*** this is in hyd or not? : ${this.isUserInsideHyderabad}`);
-
       let lat = result.geometry.location.lat;
       let lng = result.geometry.location.lng;
 

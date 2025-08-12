@@ -41,7 +41,7 @@ export function paymentSuccess() {
   return new DynamicStructuredTool({
     name: "paymentSuccess",
     description:
-      "displays necessary messages after payment is successful.Only run this method when you receive input as `paymentsuccessfrombot`",
+      "displays order confirmation with OrderId afer successful payment.Only run this method when you receive input as `paymentsuccessfrombot`",
     schema: z.object({}),
     func: async ({}, config) => {
       try {
@@ -66,8 +66,6 @@ export function paymentSuccess() {
         let user = await userManager.saveUserToDatabase(config, null);
 
         let createdOrder = await order.createOrder(cartManager, user);
-
-        console.log(createdOrder._id);
 
         return new Formatter().getOrderSummary(
           cartManager,
